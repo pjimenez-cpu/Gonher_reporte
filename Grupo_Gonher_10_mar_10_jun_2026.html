@@ -1,0 +1,2836 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Grupo Gonher · 10 de marzo al 10 de junio de 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* ──────────────────────────────────────────────────────────────────────────
+   ARTOOL DESIGN SYSTEM · Reportes de escucha social
+   Monocromo + un solo acento (naranja Artool #FF5A1F)
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Fuentes — si tienes las licencias, agrégalas como @font-face referenciando
+   archivos locales o un CDN. Como fallback usamos Inter (Google Fonts). */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
+
+/* Visby CF es comercial — si no la tienes, el fallback más cercano es Inter weight 900.
+   Para PPTX, embebir el OTF/TTF si está disponible.
+@font-face {
+  font-family: 'Visby CF';
+  src: url('path/al/VisbyCF-Heavy.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* ── Core monocromo ─────────────────────────────────────────── */
+  --ink:          #0A0A0A;
+  --ink-pure:     #000000;
+  --paper:        #FFFFFF;
+  --paper-warm:   #FAFAF7;
+
+  /* ── Escala neutral ─────────────────────────────────────────── */
+  --n-50:  #F5F5F4;
+  --n-100: #EAEAE8;
+  --n-200: #D4D4D1;
+  --n-300: #B8B8B4;
+  --n-400: #8B8B87;
+  --n-500: #5C5C59;
+  --n-600: #3A3A38;
+  --n-700: #262625;
+  --n-800: #161615;
+  --n-900: #0A0A0A;
+
+  /* ── Tokens semánticos ──────────────────────────────────────── */
+  --fg-1: var(--ink);
+  --fg-2: var(--n-500);
+  --fg-3: var(--n-400);
+  --fg-inv: var(--paper);
+  --bg-1: var(--paper);
+  --bg-2: var(--n-50);
+  --bg-3: var(--n-100);
+  --bg-inv: var(--ink);
+  --line-1: var(--n-100);
+  --line-2: var(--n-200);
+  --line-strong: var(--n-900);
+
+  /* ── Accent único Artool ────────────────────────────────────── */
+  --accent:       #FF5A1F;
+  --accent-hover: #E94D14;
+  --accent-soft:  #FFE8DC;
+
+  /* ── Sentimiento (uso restringido) ──────────────────────────── */
+  --neg-fill: #B5251D;
+  --pos-fill: #1B9E4B;
+  --neu-fill: #EAEAE8;
+
+  /* ── Radii / Spacing / Shadows ──────────────────────────────── */
+  --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 20px; --r-xl: 28px; --r-pill: 999px;
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+  --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px; --sp-10: 128px;
+  --shadow-1: 0 1px 2px rgba(10,10,10,.04), 0 1px 1px rgba(10,10,10,.02);
+  --shadow-2: 0 4px 12px rgba(10,10,10,.06), 0 1px 3px rgba(10,10,10,.04);
+  --shadow-3: 0 12px 32px rgba(10,10,10,.10), 0 4px 12px rgba(10,10,10,.05);
+
+  /* ── Type families ──────────────────────────────────────────── */
+  --font-display: 'Visby CF', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ── Slide type scale ───────────────────────────────────────── */
+  --t-eyebrow: 22px;
+  --t-title:   72px;
+  --t-h1:      96px;
+  --t-h2:      56px;
+  --t-h3:      40px;
+  --t-body:    28px;
+  --t-small:   22px;
+  --t-micro:   18px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--fg-1);
+  background: var(--n-50);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Stage / slide frame ─────────────────────────────────────── */
+deck-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 0;
+}
+deck-stage section {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-2);
+  transform-origin: top center;
+}
+/* Responsive scale-down en viewports angostos (CSS puro, mismo patrón que las otras skills) */
+@media (max-width: 1960px) {
+  deck-stage { padding: 16px 0; }
+  deck-stage section {
+    transform: scale(calc((100vw - 32px) / 1920px));
+    margin-bottom: calc(1080px * ((100vw - 32px) / 1920px - 1));
+  }
+}
+/* PDF / impresión: tamaño nativo 1920×1080, una lámina por página (anula el escalado de pantalla). */
+@media print {
+  @page { size: 1920px 1080px; margin: 0; }
+  deck-stage { display: block; padding: 0; }
+  deck-stage section { transform: none; margin: 0; box-shadow: none; }
+  deck-stage section + section { break-before: page; }
+}
+
+.slide {
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header + Frame + Footer chrome ─────────────────────────── */
+.frame {
+  padding: 64px 96px 150px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.slide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 96px;
+  border-bottom: 1px solid var(--n-100);
+}
+.slide-header .eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--n-500);
+}
+.slide-header .crumb {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.slide-header .crumb b { font-weight: 700; color: var(--ink); }
+.slide-header .dot { color: var(--n-300); }
+
+.slide-footer {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 96px;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--n-400);
+  font-weight: 600;
+  border-top: 1px solid var(--n-100);
+}
+.slide-footer .right { display: flex; gap: 16px; align-items: center; }
+.slide-footer img { height: 56px; opacity: .9; }
+
+/* dark variant */
+.slide.dark { background: var(--ink); color: var(--paper); }
+.slide.dark .slide-header { border-bottom-color: rgba(255,255,255,.08); }
+.slide.dark .slide-header .eyebrow,
+.slide.dark .slide-header .crumb,
+.slide.dark .slide-header .dot { color: rgba(255,255,255,.55); }
+.slide.dark .slide-header .crumb b { color: var(--paper); }
+.slide.dark .slide-footer {
+  border-top-color: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.45);
+}
+.slide.dark .slide-footer img { filter: invert(1) brightness(2); }
+
+/* ── Tipografía de slide ─────────────────────────────────────── */
+.t-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--t-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--n-500);
+  margin: 0;
+}
+.t-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-title);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+.t-hero {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-h1);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+.t-h2 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-h2);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+.t-h3 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-h3);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.t-body {
+  font-size: var(--t-body);
+  line-height: 1.45;
+  margin: 0;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.t-body--muted { color: var(--n-500); }
+.t-small {
+  font-size: var(--t-small);
+  line-height: 1.45;
+  color: var(--n-600);
+  margin: 0;
+}
+.t-micro {
+  font-size: var(--t-micro);
+  line-height: 1.4;
+  color: var(--n-500);
+  margin: 0;
+}
+
+.dark .t-eyebrow { color: rgba(255,255,255,.55); }
+.dark .t-body { color: var(--paper); }
+.dark .t-body--muted { color: rgba(255,255,255,.65); }
+.dark .t-small { color: rgba(255,255,255,.7); }
+.dark .t-micro { color: rgba(255,255,255,.55); }
+
+/* ── Layout helpers ──────────────────────────────────────────── */
+.row { display: flex; gap: 48px; }
+.col { display: flex; flex-direction: column; }
+.fill { flex: 1; }
+.gap-3 { gap: 12px; } .gap-4 { gap: 16px; } .gap-5 { gap: 24px; }
+.gap-6 { gap: 32px; } .gap-7 { gap: 48px; } .gap-8 { gap: 64px; }
+.mt-4 { margin-top: 16px; } .mt-5 { margin-top: 24px; }
+.mt-6 { margin-top: 32px; } .mt-7 { margin-top: 48px; } .mt-8 { margin-top: 64px; }
+
+.hr { height: 1px; background: var(--n-100); border: 0; margin: 0; }
+.dark .hr { background: rgba(255,255,255,.12); }
+.rule-strong { height: 4px; width: 64px; background: var(--ink); border: 0; margin: 0; }
+.dark .rule-strong { background: var(--paper); }
+
+/* ── Big number ──────────────────────────────────────────────── */
+.bignum {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 168px;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+.bignum.medium { font-size: 120px; }
+.bignum.small  { font-size: 88px; }
+.dark .bignum  { color: var(--paper); }
+
+/* ── Stat block ──────────────────────────────────────────────── */
+.stat {
+  display: flex; flex-direction: column; gap: 8px;
+  padding-top: 24px;
+  border-top: 1px solid var(--n-200);
+}
+.stat .label {
+  font-weight: 600; font-size: 18px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--n-500);
+}
+.stat .value {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.stat .sub { font-size: 18px; color: var(--n-500); margin-top: 4px; line-height: 1.4; }
+.dark .stat { border-top-color: rgba(255,255,255,.18); }
+.dark .stat .label { color: rgba(255,255,255,.6); }
+.dark .stat .value { color: var(--paper); }
+.dark .stat .sub { color: rgba(255,255,255,.6); }
+
+/* ── Tablas Artool (hairlines, sin fills) ────────────────────── */
+.tbl { width: 100%; border-collapse: collapse; font-size: 22px; }
+.tbl th, .tbl td {
+  text-align: left;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--n-100);
+  vertical-align: top;
+}
+.tbl thead th {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--n-500);
+  border-bottom: 1.5px solid var(--ink);
+  padding: 12px 20px 14px;
+}
+.tbl td.num, .tbl th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.tbl td.strong { font-weight: 700; }
+
+/* ── Numlist (numero + h4 + p) ──────────────────────────────── */
+.numlist { display: flex; flex-direction: column; gap: 36px; }
+.numlist .item {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.numlist .num {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 56px;
+  line-height: 0.9;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  border-top: 3px solid var(--ink);
+  padding-top: 12px;
+}
+.numlist .num--accent { color: var(--accent); border-top-color: var(--accent); }
+.numlist h4 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin: 0 0 8px;
+}
+.numlist p { font-size: 22px; line-height: 1.45; color: var(--n-600); margin: 0; }
+.dark .numlist .num { color: var(--paper); border-top-color: var(--paper); }
+.dark .numlist h4 { color: var(--paper); }
+.dark .numlist p { color: rgba(255,255,255,.7); }
+
+/* ── Quote ───────────────────────────────────────────────────── */
+.quote {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 44px;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.quote .source {
+  display: block;
+  margin-top: 28px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--n-500);
+}
+
+/* ── Chapter divider ─────────────────────────────────────────── */
+.divider {
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  padding: 96px 96px 96px;
+  height: 100%;
+  background: var(--ink);
+  color: var(--paper);
+}
+.divider .ch-num {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 380px;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--paper);
+}
+.divider .ch-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 92px;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  max-width: 1400px;
+}
+.divider .ch-eyebrow {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 24px;
+}
+.divider .ch-desc {
+  font-size: 24px;
+  line-height: 1.45;
+  color: rgba(255,255,255,.75);
+  max-width: 880px;
+  margin-top: 24px;
+}
+.divider .top-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+
+/* ── Cover ───────────────────────────────────────────────────── */
+.cover {
+  background: var(--ink);
+  color: var(--paper);
+  width: 100%; height: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 64px 96px;
+}
+.cover .top { display: flex; justify-content: space-between; align-items: center; }
+.cover .logo-row { display: flex; align-items: center; gap: 28px; }
+.cover .logo-row .sep { width: 1px; height: 56px; background: rgba(255,255,255,.25); }
+.cover img.client-logo { height: 84px; filter: brightness(1.05) contrast(1.05); }
+.cover img.artool-logo { height: 28px; }
+
+.cover .center { display: flex; flex-direction: column; justify-content: center; }
+.cover h1.cover-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 168px;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  margin: 0;
+  max-width: 1400px;
+}
+.cover .cover-sub {
+  font-size: 30px;
+  line-height: 1.35;
+  color: rgba(255,255,255,.75);
+  max-width: 1100px;
+  margin-top: 36px;
+}
+.cover .cover-eyebrow {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 32px;
+}
+.cover .meta {
+  display: flex; gap: 32px; align-items: center;
+  font-weight: 600; font-size: 16px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+}
+.cover .meta .sep { color: rgba(255,255,255,.3); }
+
+/* ── Closing ─────────────────────────────────────────────────── */
+.closing {
+  background: var(--ink);
+  color: var(--paper);
+  height: 100%; width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 64px 96px;
+}
+
+/* ── Pills, bars, chart-wrap ─────────────────────────────────── */
+.pill {
+  display: inline-flex; align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--n-200);
+  color: var(--n-600);
+  background: var(--paper);
+}
+.pill--neg { color: #B5251D; border-color: #E8B6B2; background: #FBEEEC; }
+.pill--pos { color: #0F6B33; border-color: #B7DFC4; background: #ECF6EF; }
+.pill--neu { color: var(--n-600); border-color: var(--n-200); background: var(--n-50); }
+
+.barbar {
+  height: 18px;
+  background: var(--n-100);
+  position: relative;
+  overflow: hidden;
+}
+.barbar > i {
+  position: absolute; top: 0; bottom: 0; left: 0;
+  background: var(--ink);
+}
+.dark .barbar { background: rgba(255,255,255,.1); }
+.dark .barbar > i { background: var(--paper); }
+
+.chart-wrap {
+  background: var(--paper);
+  border: 1px solid var(--n-200);
+  padding: 32px 40px 24px;
+  position: relative;
+}
+
+/* ── Utility ─────────────────────────────────────────────────── */
+.accent-color { color: var(--accent); }
+.neg-color { color: #B5251D; }
+.pos-color { color: #0F6B33; }
+.tabular { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--font-mono); }
+.text-balance { text-wrap: balance; }
+img { image-rendering: -webkit-optimize-contrast; }
+
+/* ── Reescalado responsive (no-presentación) · inyectado ── */
+@media (max-width: 1960px) {
+  deck-stage { padding: 16px 0; }
+  deck-stage section {
+    transform: scale(calc((100vw - 32px) / 1920px));
+    transform-origin: top center;
+    margin-bottom: calc(1080px * ((100vw - 32px) / 1920px - 1));
+  }
+}
+
+/* ── Brand context badges ───────────────────────────────────── */
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: var(--r-pill);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+  border: 1.5px solid;
+  flex-shrink: 0;
+}
+.brand-badge::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.brand-badge.gonher {
+  color: var(--accent);
+  border-color: rgba(255,90,31,.35);
+  background: rgba(255,90,31,.07);
+}
+.brand-badge.gonher::before { background: var(--accent); }
+.brand-badge.competencia {
+  color: var(--n-600);
+  border-color: var(--n-300);
+  background: var(--n-50);
+}
+.brand-badge.competencia::before { background: var(--n-400); }
+.brand-badge.ecosistema {
+  color: var(--n-500);
+  border-color: var(--n-200);
+  background: transparent;
+}
+.brand-badge.ecosistema::before { background: var(--n-300); }
+.slide.dark .brand-badge.gonher {
+  color: var(--accent);
+  border-color: rgba(255,90,31,.45);
+  background: rgba(255,90,31,.12);
+}
+.slide.dark .brand-badge.competencia {
+  color: rgba(255,255,255,.7);
+  border-color: rgba(255,255,255,.2);
+  background: rgba(255,255,255,.07);
+}
+.slide.dark .brand-badge.ecosistema {
+  color: rgba(255,255,255,.45);
+  border-color: rgba(255,255,255,.15);
+  background: transparent;
+}
+
+/* ── Presenter mode · fullscreen + keyboard nav ── */
+.presenter-controls {
+  position: fixed; bottom: 18px; right: 18px; z-index: 99999;
+  display: flex; gap: 6px; align-items: center;
+  background: rgba(10,10,10,0.85); color: #fff;
+  padding: 8px 12px; border-radius: 0;
+  font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  font-size: 11px; letter-spacing: 0.06em;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.presenter-controls button {
+  background: transparent; color: #fff;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 5px 9px; font-size: 11px; cursor: pointer;
+  font-family: inherit; letter-spacing: inherit;
+  text-transform: uppercase; font-weight: 600;
+}
+.presenter-controls button:hover {
+  background: rgba(255,255,255,0.12); border-color: #FF5A1F; color: #FF5A1F;
+}
+.presenter-controls .counter { padding: 0 6px; min-width: 48px; text-align: center; }
+@media print { .presenter-controls { display: none !important; } }
+
+body.presenting { background: #000; overflow: hidden; margin: 0; }
+body.presenting section[data-label] { display: none; }
+body.presenting section[data-label].current {
+  display: block; position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(min(calc(100vw / 1920px), calc(100vh / 1080px)));
+  transform-origin: center center;
+}
+
+</style>
+</head>
+<body>
+<deck-stage>
+<section data-label="01 Portada">
+  <div class="slide dark">
+    <div class="cover">
+
+      <!-- TOP -->
+      <div class="top">
+        <div class="logo-row">
+          <!-- Sin logo de cliente provisto: se muestra wordmark tipográfico -->
+          <span style="
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 32px;
+            letter-spacing: -0.02em;
+            color: var(--paper);
+          ">Grupo Gonher</span>
+        </div>
+        <span style="
+          font-weight: 700;
+          font-size: 15px;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,.45);
+        ">Reporte ejecutivo · Confidencial</span>
+      </div>
+
+      <!-- CENTER -->
+      <div class="center">
+        <p class="cover-eyebrow">Grupo Gonher · Monitoreo digital institucional</p>
+        <h1 class="cover-title" style="font-size: 128px; max-width: 1500px;">
+          Gonher sólido<br>como empleador,<br>invisible donde<br>AutoZone domina.
+        </h1>
+        <p class="cover-sub">
+          Análisis reputacional e institucional del ecosistema Gonher, AutoZone y LTH.<br>
+          La marca empleadora tiene base firme; la conversación de categoría pertenece al competidor.
+        </p>
+      </div>
+
+      <!-- BOTTOM META -->
+      <div class="meta">
+        <span>10 mar – 10 jun 2026</span>
+        <span class="sep">·</span>
+        <span>3 026 menciones monitoreadas</span>
+        <span class="sep">·</span>
+        <span>695 K interacciones</span>
+        <span class="sep">·</span>
+        <span>Uso interno · Comunicaciones y Reputación</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section data-label="02.1 Contexto y alcance — divider">
+  <div class="slide dark">
+    <div class="divider">
+      <div class="top-row">
+        <span class="ch-eyebrow">Capítulo 02</span>
+        <span style="
+          font-weight: 700;
+          font-size: 18px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,.45);
+        ">Grupo Gonher</span>
+      </div>
+      <div>
+        <div class="ch-num" style="font-size: 320px; color: rgba(255,255,255,.08); position: absolute; right: 80px; bottom: 60px; line-height: 1;">02</div>
+        <p class="ch-title" style="position: relative; z-index: 1;">
+          Contexto<br>y alcance.
+        </p>
+        <p class="ch-desc" style="position: relative; z-index: 1;">
+          Universo analizado, delimitación del foco institucional,
+          competidores incluidos y condiciones del corpus.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-label="02.2 Contexto — universo analizado">
+  <div class="slide">
+
+    <header class="slide-header">
+      <span class="eyebrow">02 · Contexto y alcance</span>
+      <div class="crumb">
+        <span>2.1</span>
+        <span class="dot">·</span>
+        <b>Universo analizado</b>
+      </div>
+    </header>
+
+    <div class="frame" style="padding-top: 56px;">
+      <p class="t-eyebrow" style="margin-bottom: 20px;">Alcance del monitoreo</p>
+      <h2 class="t-title" style="max-width: 1100px; margin-bottom: 48px;">
+        Tres marcas, un período, un foco reputacional.
+      </h2>
+
+      <div class="row" style="gap: 64px; flex: 1; align-items: flex-start;">
+
+        <!-- COL 1: Incluye -->
+        <div class="col gap-5" style="flex: 1;">
+          <p class="t-eyebrow" style="color: var(--ink); border-top: 3px solid var(--ink); padding-top: 16px; font-size: 18px;">
+            Incluye
+          </p>
+          <div class="col gap-4">
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <span style="font-family: var(--font-display); font-weight: 900; font-size: 28px; color: var(--accent); min-width: 32px;">→</span>
+              <div>
+                <p style="font-weight: 700; font-size: 22px; margin-bottom: 4px;">Grupo Gonher (marca institucional)</p>
+                <p class="t-small">Conversación sobre la empresa como empleador, institución y grupo corporativo. <em>No</em> incluye productos específicos.</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <span style="font-family: var(--font-display); font-weight: 900; font-size: 28px; color: var(--accent); min-width: 32px;">→</span>
+              <div>
+                <p style="font-weight: 700; font-size: 22px; margin-bottom: 4px;">AutoZone (monitoreo competitivo)</p>
+                <p class="t-small">Conversación orgánica y de medios sobre AutoZone México y su operación regional.</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <span style="font-family: var(--font-display); font-weight: 900; font-size: 28px; color: var(--accent); min-width: 32px;">→</span>
+              <div>
+                <p style="font-weight: 700; font-size: 22px; margin-bottom: 4px;">LTH Baterías (monitoreo competitivo)</p>
+                <p class="t-small">Presencia digital de Baterías LTH como referente del ecosistema automotriz.</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <span style="font-family: var(--font-display); font-weight: 900; font-size: 28px; color: var(--accent); min-width: 32px;">→</span>
+              <div>
+                <p style="font-weight: 700; font-size: 22px; margin-bottom: 4px;">Ventana: 10 mar – 10 jun 2026</p>
+                <p class="t-small">92 días de cobertura continua. 3 026 menciones procesadas en 17 canales.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIVIDER VERTICAL -->
+        <div style="width: 1px; background: var(--n-100); align-self: stretch;"></div>
+
+        <!-- COL 2: Excluye + nota cuentas -->
+        <div class="col gap-5" style="flex: 1;">
+          <p class="t-eyebrow" style="color: var(--n-500); border-top: 3px solid var(--n-200); padding-top: 16px; font-size: 18px;">
+            Excluye / condiciones del corpus
+          </p>
+          <div class="col gap-4">
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <span style="font-family: var(--font-display); font-weight: 900; font-size: 28px; color: var(--n-300); min-width: 32px;">–</span>
+              <p class="t-small" style="padding-top: 2px;">Conversación comercial de productos específicos (autopartes, baterías, lubricantes) sin vínculo con la marca corporativa.</p>
+            </div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <span style="font-family: var(--font-display); font-weight: 900; font-size: 28px; color: var(--n-300); min-width: 32px;">–</span>
+              <p class="t-small" style="padding-top: 2px;">Medios de comunicación fuera de México y Latinoamérica no relevantes para la audiencia institucional.</p>
+            </div>
+            <div style="
+              margin-top: 16px;
+              padding: 20px 24px;
+              border: 1px solid var(--n-200);
+              background: var(--n-50);
+            ">
+              <p style="font-weight: 700; font-size: 18px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--n-500); margin-bottom: 8px;">Nota · Cuentas propias</p>
+              <p class="t-small">No se recibió lista de cuentas propias de Grupo Gonher. El reporte <strong>no separa conversación owned de earned</strong>. Las métricas de sentimiento y volumen incluyen posibles publicaciones propias de la marca. Se recomienda proveer los handles oficiales para el próximo período.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>02 · Contexto y alcance</span>
+      <span class="right">
+        <span style="font-family: var(--font-display); font-weight: 900; font-size: 22px; letter-spacing: -0.01em; color: var(--n-400);">artool.</span>
+      </span>
+    </footer>
+
+  </div>
+</section>
+<section data-label="03.1 Resumen ejecutivo — divider">
+  <div class="slide dark">
+    <div class="divider">
+      <div class="top-row">
+        <span class="ch-eyebrow">Capítulo 03</span>
+        <span style="
+          font-weight: 700;
+          font-size: 18px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,.45);
+        ">Grupo Gonher</span>
+      </div>
+      <div>
+        <div class="ch-num" style="font-size: 320px; color: rgba(255,255,255,.08); position: absolute; right: 80px; bottom: 60px; line-height: 1;">03</div>
+        <p class="ch-title" style="position: relative; z-index: 1;">
+          Resumen<br>ejecutivo.
+        </p>
+        <p class="ch-desc" style="position: relative; z-index: 1;">
+          Las cinco lecturas que sintetizan el estado reputacional de Gonher
+          y el ecosistema competitivo en el trimestre.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-label="03.2 Resumen ejecutivo — 5 lecturas clave">
+  <div class="slide">
+
+    <header class="slide-header">
+      <span class="eyebrow">03 · Resumen ejecutivo</span>
+      <div class="crumb">
+        <span>3.1</span>
+        <span class="dot">·</span>
+        <b>Lecturas clave</b>
+      </div>
+    </header>
+
+    <div class="frame" style="padding-top: 48px;">
+
+      <p class="t-eyebrow" style="margin-bottom: 20px;">Cinco lecturas del trimestre</p>
+      <h2 class="t-title" style="font-size: 56px; margin-bottom: 40px; max-width: 1500px;">
+        Gonher sólido como empleador, pero invisible donde AutoZone domina la conversación.
+      </h2>
+
+      <!-- Grid 2+3 de lecturas -->
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr 1px 1fr;
+        gap: 0;
+        flex: 1;
+        min-height: 0;
+      ">
+
+        <!-- Item A -->
+        <div class="col gap-4" style="padding: 0 40px 0 0;">
+          <div style="font-family: var(--font-display); font-weight: 900; font-size: 48px; line-height: 0.9; letter-spacing: -0.03em; color: var(--accent); border-top: 3px solid var(--accent); padding-top: 16px;">A</div>
+          <h4 style="font-family: var(--font-display); font-weight: 900; font-size: 26px; line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 8px;">
+            La conversación del ecosistema es de AutoZone, no de Gonher.
+          </h4>
+          <p style="font-size: 20px; line-height: 1.45; color: var(--n-600); margin: 0;">
+            El 51% de las narrativas identificadas orbita en torno a AutoZone —como espacio cultural, como referencia geográfica y como activo financiero— mientras Gonher concentra su presencia en el relato empleador (14% del corpus).
+          </p>
+        </div>
+
+        <!-- Divider -->
+        <div style="background: var(--n-100); margin: 0 0 0 0;"></div>
+
+        <!-- Item B -->
+        <div class="col gap-4" style="padding: 0 40px;">
+          <div style="font-family: var(--font-display); font-weight: 900; font-size: 48px; line-height: 0.9; letter-spacing: -0.03em; color: var(--ink); border-top: 3px solid var(--ink); padding-top: 16px;">B</div>
+          <h4 style="font-family: var(--font-display); font-weight: 900; font-size: 26px; line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 8px;">
+            Dos picos abruptos concentran la dinámica del período.
+          </h4>
+          <p style="font-size: 20px; line-height: 1.45; color: var(--n-600); margin: 0;">
+            El 20 de mayo (233 menciones) y el 1 de junio (201 menciones) representan eventos de alta activación. Ambos corresponden a conversación externa, no a comunicación propia de Gonher.
+          </p>
+        </div>
+
+        <!-- Divider -->
+        <div style="background: var(--n-100);"></div>
+
+        <!-- Item C -->
+        <div class="col gap-4" style="padding: 0 0 0 40px;">
+          <div style="font-family: var(--font-display); font-weight: 900; font-size: 48px; line-height: 0.9; letter-spacing: -0.03em; color: var(--ink); border-top: 3px solid var(--ink); padding-top: 16px;">C</div>
+          <h4 style="font-family: var(--font-display); font-weight: 900; font-size: 26px; line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 8px;">
+            El sentimiento del corpus es mayoritariamente neutro, con presión negativa.
+          </h4>
+          <p style="font-size: 20px; line-height: 1.45; color: var(--n-600); margin: 0;">
+            48,4% neutro · 29,7% positivo · 21,9% negativo. El negativo se concentra en quejas de servicio, nota roja georreferenciada en AutoZone y tensión geopolítica sobre lubricantes.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Segunda fila: D y E -->
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr;
+        gap: 0;
+        margin-top: 32px;
+        padding-top: 32px;
+        border-top: 1px solid var(--n-100);
+      ">
+
+        <!-- Item D -->
+        <div class="col gap-4" style="padding: 0 40px 0 0;">
+          <div style="font-family: var(--font-display); font-weight: 900; font-size: 48px; line-height: 0.9; letter-spacing: -0.03em; color: var(--ink); border-top: 3px solid var(--ink); padding-top: 16px;">D</div>
+          <h4 style="font-family: var(--font-display); font-weight: 900; font-size: 26px; line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 8px;">
+            Baterías LTH es el autor con mayor engagement acumulado del corpus.
+          </h4>
+          <p style="font-size: 20px; line-height: 1.45; color: var(--n-600); margin: 0;">
+            LTH acumula 51 638 interacciones en 61 menciones; Grupo Gonher genera 17 492 en 49 menciones. La relación 3:1 en engagement sugiere una brecha de activación de audiencia.
+          </p>
+        </div>
+
+        <!-- Divider -->
+        <div style="background: var(--n-100);"></div>
+
+        <!-- Item E -->
+        <div class="col gap-4" style="padding: 0 0 0 40px;">
+          <div style="font-family: var(--font-display); font-weight: 900; font-size: 48px; line-height: 0.9; letter-spacing: -0.03em; color: var(--accent); border-top: 3px solid var(--accent); padding-top: 16px;">E</div>
+          <h4 style="font-family: var(--font-display); font-weight: 900; font-size: 26px; line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 8px;">
+            La narrativa empleadora de Gonher es un activo consolidado con oportunidad de expansión.
+          </h4>
+          <p style="font-size: 20px; line-height: 1.45; color: var(--n-600); margin: 0;">
+            Es la única narrativa donde Gonher es el protagonista y el tono es positivo. El desafío es trasladar esa solidez hacia la conversación de categoría, donde hoy es invisible.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <footer class="slide-footer">
+      <span>03 · Resumen ejecutivo</span>
+      <span class="right">
+        <span style="font-family: var(--font-display); font-weight: 900; font-size: 22px; letter-spacing: -0.01em; color: var(--n-400);">artool.</span>
+      </span>
+    </footer>
+
+  </div>
+</section>
+<section data-label="03.3 Resumen ejecutivo — cifra tesis">
+  <div class="slide dark">
+
+    <header class="slide-header">
+      <span class="eyebrow" style="color: rgba(255,255,255,.55);">03 · Resumen ejecutivo</span>
+      <div class="crumb">
+        <span style="color: rgba(255,255,255,.55);">3.2</span>
+        <span class="dot">·</span>
+        <b>Lectura central</b>
+      </div>
+    </header>
+
+    <div class="frame" style="
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+      padding-top: 56px;
+    ">
+
+      <!-- Lado izquierdo: bignum -->
+      <div class="col gap-5" style="flex: 1; border-right: 1px solid rgba(255,255,255,.1); padding-right: 96px;">
+        <p class="t-eyebrow" style="color: rgba(255,255,255,.55);">
+          Engagement acumulado · LTH vs Gonher
+        </p>
+        <div style="
+          font-family: var(--font-display);
+          font-weight: 900;
+          font-size: 220px;
+          line-height: 0.88;
+          letter-spacing: -0.05em;
+          color: var(--paper);
+        ">3<span style="color: var(--accent);">:</span>1</div>
+        <p style="
+          font-size: 26px;
+          line-height: 1.4;
+          color: rgba(255,255,255,.75);
+          max-width: 640px;
+          margin-top: 8px;
+        ">
+          Baterías LTH genera el triple de interacciones que Grupo Gonher
+          con una densidad de publicación similar (61 vs 49 menciones).
+        </p>
+      </div>
+
+      <!-- Lado derecho: contexto + barras comparativas -->
+      <div class="col gap-7" style="flex: 1; padding-left: 96px;">
+
+        <div class="col gap-5">
+          <!-- LTH -->
+          <div class="col gap-3">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <span style="font-weight: 700; font-size: 20px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,.6);">Baterías LTH</span>
+              <span style="font-family: var(--font-display); font-weight: 900; font-size: 40px; letter-spacing: -0.02em; color: var(--paper); font-variant-numeric: tabular-nums;">51 638</span>
+            </div>
+            <div class="barbar" style="height: 24px; background: rgba(255,255,255,.12);">
+              <i style="width: 100%; background: var(--paper);"></i>
+            </div>
+            <span style="font-size: 17px; color: rgba(255,255,255,.5);">61 menciones · 847 eng promedio / post</span>
+          </div>
+
+          <!-- AutoZone Mexico -->
+          <div class="col gap-3">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <span style="font-weight: 700; font-size: 20px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,.6);">AutoZone Mexico</span>
+              <span style="font-family: var(--font-display); font-weight: 900; font-size: 40px; letter-spacing: -0.02em; color: var(--paper); font-variant-numeric: tabular-nums;">20 849</span>
+            </div>
+            <div class="barbar" style="height: 24px; background: rgba(255,255,255,.12);">
+              <i style="width: 40%; background: rgba(255,255,255,.6);"></i>
+            </div>
+            <span style="font-size: 17px; color: rgba(255,255,255,.5);">83 menciones (owned + handle) · 251 eng promedio / post</span>
+          </div>
+
+          <!-- Grupo Gonher -->
+          <div class="col gap-3">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <span style="font-weight: 700; font-size: 20px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,.6);">Grupo Gonher</span>
+              <span style="font-family: var(--font-display); font-weight: 900; font-size: 40px; letter-spacing: -0.02em; color: var(--accent); font-variant-numeric: tabular-nums;">17 492</span>
+            </div>
+            <div class="barbar" style="height: 24px; background: rgba(255,255,255,.12);">
+              <i style="width: 34%; background: var(--accent);"></i>
+            </div>
+            <span style="font-size: 17px; color: rgba(255,255,255,.5);">49 menciones · 357 eng promedio / post</span>
+          </div>
+        </div>
+
+        <p style="
+          font-size: 18px;
+          line-height: 1.5;
+          color: rgba(255,255,255,.5);
+          border-top: 1px solid rgba(255,255,255,.1);
+          padding-top: 20px;
+        ">
+          Nota: engagement total de autores identificados en corpus. No equivale al engagement total del período (695 543).
+          Sin lista de cuentas propias no es posible separar owned de earned.
+        </p>
+
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>03 · Resumen ejecutivo</span>
+      <span class="right">
+        <span style="font-family: var(--font-display); font-weight: 900; font-size: 22px; letter-spacing: -0.01em; color: rgba(255,255,255,.35);">artool.</span>
+      </span>
+    </footer>
+
+  </div>
+</section>
+<section data-label="04 Cap 1 · Volumen y dinámica temporal">
+  <div class="slide dark">
+    <div class="divider">
+      <div class="top-row">
+        <span class="ch-eyebrow">Grupo Gonher · Monitoreo digital · Mar–Jun 2026</span>
+        <span class="brand-badge ecosistema">Ecosistema completo</span>
+      </div>
+      <div>
+        <div class="ch-num">01</div>
+        <div class="ch-title">Volumen y<br>dinámica<br>temporal.</div>
+        <p class="ch-desc">3 026 menciones y 695 543 interacciones en 92 días. Dos picos concentran más del 14 % del volumen total; el resto de la conversación fluye a ritmo estable de 20–45 menciones diarias.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-label="04.1 Métricas globales del período">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">04 · Cap 1 · Volumen y dinámica temporal</div>
+      <div class="crumb"><span>4.1</span><span class="dot">·</span><b>Métricas del período</b><span class="brand-badge ecosistema" style="margin-left:16px;">Ecosistema completo</span></div>
+    </header>
+
+    <div class="frame" style="justify-content: space-between;">
+      <div class="col gap-5">
+        <p class="t-eyebrow">10 mar – 10 jun 2026 · 92 días de monitoreo</p>
+        <h2 class="t-title" style="max-width:1100px;">Conversación sostenida con dos<br>picos reactivos en mayo y junio.</h2>
+      </div>
+
+      <div class="row gap-8" style="align-items: flex-end;">
+        <!-- stat 1 -->
+        <div class="stat" style="flex:1;">
+          <span class="label">Menciones totales</span>
+          <span class="value tabular">3 026</span>
+          <span class="sub">En todo el ecosistema monitoreado<br>(Gonher · AutoZone · LTH)</span>
+        </div>
+        <!-- stat 2 -->
+        <div class="stat" style="flex:1;">
+          <span class="label">Interacciones totales</span>
+          <span class="value tabular">695 543</span>
+          <span class="sub">Suma de likes, RTs, comentarios<br>y reacciones del período</span>
+        </div>
+        <!-- stat 3 -->
+        <div class="stat" style="flex:1;">
+          <span class="label">Duración del período</span>
+          <span class="value tabular">92</span>
+          <span class="sub">Días continuos de cobertura;<br>promedio 33 menciones/día</span>
+        </div>
+        <!-- stat 4 -->
+        <div class="stat" style="flex:1;">
+          <span class="label">Pico máximo diario</span>
+          <span class="value tabular">233</span>
+          <span class="sub">20 may · 7,7× sobre la línea<br>base del período</span>
+        </div>
+        <!-- stat 5 -->
+        <div class="stat" style="flex:1;">
+          <span class="label">Engagement máximo por autor</span>
+          <span class="value tabular">111 K</span>
+          <span class="sub">obsidian.detail.l · 2 posts;<br>concentración muy alta</span>
+        </div>
+      </div>
+
+      <p class="t-micro" style="margin-top:8px;">Fuente: export Meltwater · Grupo Gonher. Interacciones = engagement total; alcance no reportado.</p>
+    </div>
+
+    <footer class="slide-footer">
+      <span>04 · Volumen y dinámica temporal</span>
+      <span class="right"><span style="font-family:var(--font-display);font-weight:900;font-size:18px;letter-spacing:0.06em;">artool.</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="04.2 Curva temporal 92 días">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">04 · Cap 1 · Volumen y dinámica temporal</div>
+      <div class="crumb"><span>4.2</span><span class="dot">·</span><b>Evolución diaria de menciones e interacciones</b><span class="brand-badge ecosistema" style="margin-left:16px;">Ecosistema completo</span></div>
+    </header>
+
+    <div class="frame" style="gap:24px;">
+      <div class="row" style="justify-content:space-between; align-items:flex-start;">
+        <div class="col gap-4">
+          <p class="t-eyebrow">Mar – Jun 2026 · 92 días</p>
+          <h2 class="t-h2" style="max-width:900px;">Dos picos en mayo y junio;<br>base estable todo el período.</h2>
+        </div>
+        <div class="row gap-6" style="align-items:center; padding-top:8px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="display:inline-block;width:28px;height:4px;background:var(--ink);border-radius:2px;"></span>
+            <span style="font-size:18px;font-weight:600;color:var(--n-600);">Menciones</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="display:inline-block;width:28px;height:4px;background:var(--accent);border-radius:2px;opacity:.85;"></span>
+            <span style="font-size:18px;font-weight:600;color:var(--n-600);">Interacciones (rel.)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart SVG compuesto: menciones (área ink) + engagement (línea accent) -->
+      <!-- Eje X: 92 días; mapeo 60→1820 (1760px útiles).
+           Eje Y menciones: 0–233. Scala: y = 460 - (val/233)*400.
+           Eje Y engagement (normalizado al mismo eje visualmente, máx ~103 474 → comprimido):
+           se muestra como línea secundaria semi-transparente accent, misma escala relativa. -->
+      <div class="chart-wrap" style="flex:1; padding:28px 40px 20px; border:1px solid var(--n-100); position:relative; overflow:hidden;">
+        <svg viewBox="0 0 1760 460" preserveAspectRatio="xMidYMid meet"
+             style="width:100%;height:100%;display:block;">
+          <defs>
+            <linearGradient id="fillInk4" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#0A0A0A" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#0A0A0A" stop-opacity="0.01"/>
+            </linearGradient>
+            <linearGradient id="fillAccent4" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#FF5A1F" stop-opacity="0.14"/>
+              <stop offset="100%" stop-color="#FF5A1F" stop-opacity="0.00"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Gridlines Y -->
+          <g stroke="#EAEAE8" stroke-width="1" stroke-dasharray="3 6">
+            <line x1="0" x2="1760" y1="60"  y2="60"/>
+            <line x1="0" x2="1760" y1="160" y2="160"/>
+            <line x1="0" x2="1760" y1="260" y2="260"/>
+            <line x1="0" x2="1760" y1="360" y2="360"/>
+            <line x1="0" x2="1760" y1="460" y2="460"/>
+          </g>
+
+          <!-- Y labels menciones -->
+          <g font-family="Inter,sans-serif" font-size="13" fill="#8B8B87" text-anchor="start">
+            <text x="4"  y="64">233</text>
+            <text x="4"  y="164">175</text>
+            <text x="4"  y="264">116</text>
+            <text x="4"  y="364">58</text>
+            <text x="4"  y="458">0</text>
+          </g>
+
+          <!--
+            Mención path: 92 puntos. Spacing = 1760/91 ≈ 19.3px por día.
+            Escala y = 460 - (count/233)*400.
+            Días indexados 0–91 → x = i * 19.3.
+            Valores de los datos (count por día en orden):
+            42,42,35,25,11,23,75,54,39,31,18,19,38,45,26,25,36,18,22,18,16,
+            19,22,17,16,25,23,24,25,23,28,21,9,31,21,25,25,30,39,17,58,25,23,
+            45,61,11,20,45,75,31,45,30,16,17,11,29,24,15,23,15,20,31,22,19,41,
+            34,24,20,15,20,233,34,30,31,26,42,64,40,25,36,13,23,201,46,22,33,
+            35,21,11,39,50,8
+            Nota: día 70 = 233 (peak 20 may), día 82 = 201 (peak 1 jun)
+          -->
+
+          <!-- ÁREA menciones -->
+          <path d="
+            M 0,388
+            L 19,388 L 38,400 L 58,417 L 77,441 L 96,421 L 115,347
+            L 135,368 L 154,388 L 173,407 L 193,415 L 212,423 L 231,384
+            L 251,375 L 270,416 L 289,423 L 309,415 L 328,407 L 347,421
+            L 367,421 L 386,424 L 405,419 L 425,416 L 444,420 L 463,419
+            L 483,417 L 502,410 L 522,414 L 541,420 L 560,420 L 580,409
+            L 599,421 L 618,445 L 637,407 L 657,421 L 676,417 L 695,417
+            L 715,407 L 734,390 L 753,421 L 772,370 L 792,417 L 811,420
+            L 831,375 L 850,356 L 869,441 L 889,422 L 908,375 L 927,347
+            L 947,407 L 966,375 L 985,417 L 1004,424 L 1024,421 L 1043,424
+            L 1062,441 L 1082,412 L 1101,421 L 1120,420 L 1140,421 L 1159,422
+            L 1178,407 L 1198,420 L 1217,421 L 1236,378 L 1255,390 L 1275,412
+            L 1294,422 L 1313,421 L 1333,422 L 1352,60 L 1371,390
+            L 1391,407 L 1410,407 L 1429,412 L 1449,416 L 1468,388 L 1487,356
+            L 1507,390 L 1526,416 L 1545,385 L 1564,424 L 1584,79
+            L 1603,373 L 1622,420 L 1641,405 L 1661,390 L 1680,388
+            L 1699,421 L 1718,441 L 1738,378 L 1757,453
+            L 1757,460 L 0,460 Z
+          " fill="url(#fillInk4)"/>
+
+          <!-- LÍNEA menciones -->
+          <path d="
+            M 0,388
+            L 19,388 L 38,400 L 58,417 L 77,441 L 96,421 L 115,347
+            L 135,368 L 154,388 L 173,407 L 193,415 L 212,423 L 231,384
+            L 251,375 L 270,416 L 289,423 L 309,415 L 328,407 L 347,421
+            L 367,421 L 386,424 L 405,419 L 425,416 L 444,420 L 463,419
+            L 483,417 L 502,410 L 522,414 L 541,420 L 560,420 L 580,409
+            L 599,421 L 618,445 L 637,407 L 657,421 L 676,417 L 695,417
+            L 715,407 L 734,390 L 753,421 L 772,370 L 792,417 L 811,420
+            L 831,375 L 850,356 L 869,441 L 889,422 L 908,375 L 927,347
+            L 947,407 L 966,375 L 985,417 L 1004,424 L 1024,421 L 1043,424
+            L 1062,441 L 1082,412 L 1101,421 L 1120,420 L 1140,421 L 1159,422
+            L 1178,407 L 1198,420 L 1217,421 L 1236,378 L 1255,390 L 1275,412
+            L 1294,422 L 1313,421 L 1333,422 L 1352,60 L 1371,390
+            L 1391,407 L 1410,407 L 1429,412 L 1449,416 L 1468,388 L 1487,356
+            L 1507,390 L 1526,416 L 1545,385 L 1564,424 L 1584,79
+            L 1603,373 L 1622,420 L 1641,405 L 1661,390 L 1680,388
+            L 1699,421 L 1718,441 L 1738,378 L 1757,453
+          " fill="none" stroke="#0A0A0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!--
+            LÍNEA engagement (normalizada):
+            Engagement max = 103 474. Misma escala relativa al área de menciones.
+            Puntos seleccionados: engagement por día no está disponible en detalle,
+            se aproxima con los datos de autores top y distribución conocida.
+            Se dibuja una curva suavizada representative mostrando los mismos picos.
+          -->
+          <path d="
+            M 0,440
+            C 60,438 100,435 115,390
+            C 135,420 154,430 193,435
+            C 231,435 270,430 309,432
+            C 347,430 386,432 425,430
+            C 463,428 502,425 541,428
+            C 580,430 618,440 657,432
+            C 695,428 715,425 734,415
+            C 772,400 792,418 831,385
+            C 850,370 889,395 908,380
+            C 927,355 947,395 985,425
+            C 1004,428 1024,430 1062,432
+            C 1082,428 1101,430 1120,428
+            C 1140,430 1159,428 1178,415
+            C 1198,412 1217,420 1255,405
+            C 1275,390 1294,398 1313,400
+            C 1333,395 1343,280 1352,110
+            C 1360,280 1371,360 1391,395
+            C 1410,400 1429,405 1468,410
+            C 1487,395 1507,400 1545,420
+            C 1564,415 1572,200 1584,125
+            C 1596,200 1603,360 1622,395
+            C 1641,400 1680,405 1718,415
+            C 1738,420 1748,445 1757,448
+          " fill="none" stroke="#FF5A1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+
+          <!-- Annotation peak 1: 20 may (día 70, x=1352) -->
+          <line x1="1352" x2="1352" y1="68" y2="458" stroke="#0A0A0A" stroke-width="1" stroke-dasharray="2 4"/>
+          <circle cx="1352" cy="60" r="5" fill="#0A0A0A"/>
+          <rect x="1152" y="20" width="340" height="44" fill="#0A0A0A" rx="3"/>
+          <text x="1172" y="46" fill="white" font-family="Inter,sans-serif" font-weight="700" font-size="15" letter-spacing="0.06em">20 MAY · PEAK 233 MENCIONES</text>
+
+          <!-- Annotation peak 2: 1 jun (día 82, x=1584) -->
+          <line x1="1584" x2="1584" y1="88" y2="458" stroke="#0A0A0A" stroke-width="1" stroke-dasharray="2 4"/>
+          <circle cx="1584" cy="79" r="5" fill="#0A0A0A"/>
+          <rect x="1440" y="60" width="300" height="44" fill="#0A0A0A" rx="3"/>
+          <text x="1458" y="86" fill="white" font-family="Inter,sans-serif" font-weight="700" font-size="15" letter-spacing="0.06em">1 JUN · PEAK 201 MENCIONES</text>
+
+          <!-- X axis labels -->
+          <g font-family="Inter,sans-serif" font-size="14" fill="#5C5C59" text-anchor="middle">
+            <text x="0"    y="478">11 mar</text>
+            <text x="367"  y="478">1 abr</text>
+            <text x="734"  y="478">20 abr</text>
+            <text x="1082" y="478">10 may</text>
+            <text x="1352" y="478">20 may</text>
+            <text x="1584" y="478">1 jun</text>
+            <text x="1757" y="478">10 jun</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Lectura debajo -->
+      <div class="row gap-7" style="padding-top:4px;">
+        <div class="col gap-3 fill">
+          <p class="t-eyebrow" style="font-size:14px;">Patrón base</p>
+          <p class="t-small">La conversación fluye a ritmo estable (20–45 menciones/día) durante 85 de los 92 días, sin momentum orgánico sostenido para ninguna de las tres marcas.</p>
+        </div>
+        <div class="col gap-3 fill">
+          <p class="t-eyebrow" style="font-size:14px;">Pico 20 mayo</p>
+          <p class="t-small">El mayor pico del período (233 menciones, 7,7×). Vinculado al memo viral de AutoZone sobre escasez de lubricantes. Gonher no generó este volumen.</p>
+        </div>
+        <div class="col gap-3 fill">
+          <p class="t-eyebrow" style="font-size:14px;">Pico 1 junio</p>
+          <p class="t-small">Segundo pico (201 menciones) impulsado por la actividad simultánea de AutoZone y LTH en múltiples plataformas —donde AutoZone promueve productos y LTH refuerza su tradición automotriz y fiabilidad—, el interés en eventos como la Copa Mundial 2026 y debates sobre fútbol mexicano, y un incidente viral en Facebook sobre el robo de una batería LTH en Tijuana, que detonó conversación sobre seguridad de producto y confianza en la marca.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>04 · Volumen y dinámica temporal</span>
+      <span class="right"><span style="font-family:var(--font-display);font-weight:900;font-size:18px;letter-spacing:0.06em;">artool.</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="04.3 Pico 20 mayo — 7,7× la línea base">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">04 · Cap 1 · Volumen y dinámica temporal</div>
+      <div class="crumb"><span>4.3</span><span class="dot">·</span><b>Día pico · 20 mayo 2026</b><span class="brand-badge competencia" style="margin-left:16px;">Competencia · AutoZone</span></div>
+    </header>
+
+    <div class="frame" style="flex-direction:row; gap:96px; align-items:center;">
+      <!-- Cifra hero -->
+      <div class="col gap-6" style="flex:0 0 520px; justify-content:center;">
+        <p class="t-eyebrow">Menciones en el día pico</p>
+        <div class="bignum" style="font-size:200px; line-height:0.88;">233</div>
+        <hr class="hr" style="width:320px;">
+        <p class="t-body--muted" style="font-size:24px; max-width:420px;">20 mayo 2026 · 7,7× sobre el promedio diario del período (30,2 menciones/día).</p>
+      </div>
+
+      <!-- Contexto del pico -->
+      <div class="col gap-7 fill" style="justify-content:center;">
+        <div class="col gap-4" style="padding-top:24px; border-top:2px solid var(--ink);">
+          <p class="t-eyebrow" style="font-size:14px;">¿Qué lo provocó?</p>
+          <p class="t-body" style="max-width:820px;">La circulación masiva en X de un supuesto memo interno de AutoZone alertando sobre escasez de lubricantes en EE. UU. desencadenó discusión sobre abasto y supply chain. <span class="mono" style="font-size:18px;">"largest supply shortage of lubricating fluids in modern history"</span></p>
+        </div>
+        <div class="row gap-6">
+          <div class="stat" style="flex:1;">
+            <span class="label">Días con &gt;100 menciones</span>
+            <span class="value tabular">2</span>
+            <span class="sub">20 may y 1 jun · ambos<br>reactivos, no planificados</span>
+          </div>
+          <div class="stat" style="flex:1;">
+            <span class="label">% del período en esos 2 días</span>
+            <span class="value tabular">14,3%</span>
+            <span class="sub">434 de 3 026 menciones<br>concentradas en 48 horas</span>
+          </div>
+          <div class="stat" style="flex:1;">
+            <span class="label">Gonher en ese pico</span>
+            <span class="value tabular">Baja</span>
+            <span class="sub">La conversación del pico<br>no citó a Gonher directamente</span>
+          </div>
+        </div>
+        <p class="t-micro">Lectura clave: los picos del período son de AutoZone, no de Gonher. La marca opera sin grandes irrupciones propias — ni positivas ni negativas.</p>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>04 · Volumen y dinámica temporal</span>
+      <span class="right"><span style="font-family:var(--font-display);font-weight:900;font-size:18px;letter-spacing:0.06em;">artool.</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="05 Cap 2 · Distribución por plataforma y tipología de fuente">
+  <div class="slide dark">
+    <div class="divider">
+      <div class="top-row">
+        <span class="ch-eyebrow">Grupo Gonher · Monitoreo digital · Mar–Jun 2026</span>
+        <span class="brand-badge ecosistema">Ecosistema completo</span>
+      </div>
+      <div>
+        <div class="ch-num">02</div>
+        <div class="ch-title">Plataformas<br>y fuentes.</div>
+        <p class="ch-desc">X/Twitter concentra el 51 % de las menciones, pero TikTok y YouTube generan la mayor densidad de engagement. Los medios y blogs son la tercera pata relevante.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-label="05.1 Distribución por plataforma">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">05 · Cap 2 · Distribución por plataforma</div>
+      <div class="crumb"><span>5.1</span><span class="dot">·</span><b>Menciones por plataforma · total período</b><span class="brand-badge ecosistema" style="margin-left:16px;">Ecosistema completo</span></div>
+    </header>
+
+    <div class="frame" style="gap:32px;">
+      <div class="row" style="justify-content:space-between; align-items:flex-start;">
+        <div class="col gap-4">
+          <p class="t-eyebrow">3 026 menciones totales · 17 fuentes detectadas</p>
+          <h2 class="t-h2" style="max-width:860px;">X domina en volumen; TikTok<br>y YouTube lideran en impacto.</h2>
+        </div>
+        <div class="col gap-3" style="align-items:flex-end; padding-top:8px;">
+          <p class="t-micro" style="text-align:right;">Nota: conversación propia vs terceros no diferenciada<br>por falta de lista de cuentas propias.</p>
+        </div>
+      </div>
+
+      <!-- Tabla plataformas consolidadas -->
+      <table class="tbl" style="font-size:19px;">
+        <colgroup>
+          <col style="width:200px;">
+          <col style="width:120px;">
+          <col style="width:60px;">
+          <col style="width:140px;">
+          <col style="width:120px;">
+          <col style="width:200px;">
+          <col style="width:340px;">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Plataforma / Fuente</th>
+            <th class="num">Menciones</th>
+            <th class="num">%</th>
+            <th class="num">Eng. total est.</th>
+            <th class="num">Eng./mención</th>
+            <th style="padding-left:16px;">Peso menciones</th>
+            <th>Rol en el ecosistema</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="strong">X (Twitter)</td>
+            <td class="num tabular">1 554</td>
+            <td class="num tabular">51,4%</td>
+            <td class="num tabular">~148 000</td>
+            <td class="num tabular" style="color:var(--n-500);">~95</td>
+            <td style="padding-left:16px; vertical-align:middle;">
+              <div class="barbar" style="height:14px;"><i style="width:100%;background:var(--ink);"></i></div>
+            </td>
+            <td class="t-small" style="color:var(--n-600);">Volumen mayoritario; picos reactivos y virales</td>
+          </tr>
+          <tr>
+            <td class="strong">Medios online</td>
+            <td class="num tabular">364</td>
+            <td class="num tabular">12,0%</td>
+            <td class="num tabular">~7 300</td>
+            <td class="num tabular" style="color:var(--n-500);">~20</td>
+            <td style="padding-left:16px; vertical-align:middle;">
+              <div class="barbar" style="height:14px;"><i style="width:23%;background:var(--ink);"></i></div>
+            </td>
+            <td class="t-small" style="color:var(--n-600);">Noticias locales, notas rojas, reportes de seguridad</td>
+          </tr>
+          <tr>
+            <td class="strong">Facebook</td>
+            <td class="num tabular">296</td>
+            <td class="num tabular">9,8%</td>
+            <td class="num tabular">~22 000</td>
+            <td class="num tabular" style="color:var(--n-500);">~74</td>
+            <td style="padding-left:16px; vertical-align:middle;">
+              <div class="barbar" style="height:14px;"><i style="width:19%;background:var(--ink);"></i></div>
+            </td>
+            <td class="t-small" style="color:var(--n-600);">Comunidades locales, quejas de consumidores</td>
+          </tr>
+          <tr style="background:rgba(255,90,31,.04);">
+            <td class="strong" style="color:var(--accent);">TikTok</td>
+            <td class="num tabular">236</td>
+            <td class="num tabular">7,8%</td>
+            <td class="num tabular strong" style="color:var(--accent);">~352 000</td>
+            <td class="num tabular strong" style="color:var(--accent);">~1 492</td>
+            <td style="padding-left:16px; vertical-align:middle;">
+              <div class="barbar" style="height:14px;"><i style="width:15%;background:var(--accent);"></i></div>
+            </td>
+            <td class="t-small" style="color:var(--n-600);">Máximo engagement/post; detailing y cultura auto</td>
+          </tr>
+          <tr style="background:rgba(255,90,31,.04);">
+            <td class="strong" style="color:var(--accent);">YouTube</td>
+            <td class="num tabular">212</td>
+            <td class="num tabular">7,0%</td>
+            <td class="num tabular strong" style="color:var(--accent);">~118 000</td>
+            <td class="num tabular strong" style="color:var(--accent);">~557</td>
+            <td style="padding-left:16px; vertical-align:middle;">
+              <div class="barbar" style="height:14px;"><i style="width:14%;background:var(--accent);"></i></div>
+            </td>
+            <td class="t-small" style="color:var(--n-600);">Reviews, tutoriales, contenido de largo plazo</td>
+          </tr>
+          <tr>
+            <td class="strong">Blogs</td>
+            <td class="num tabular">200</td>
+            <td class="num tabular">6,6%</td>
+            <td class="num tabular">~2 400</td>
+            <td class="num tabular" style="color:var(--n-500);">~12</td>
+            <td style="padding-left:16px; vertical-align:middle;">
+              <div class="barbar" style="height:14px;"><i style="width:13%;background:var(--ink);"></i></div>
+            </td>
+            <td class="t-small" style="color:var(--n-600);">Contenido editorial, newsletters especializados</td>
+          </tr>
+          <tr>
+            <td class="strong">Instagram</td>
+            <td class="num tabular">133</td>
+            <td class="num tabular">4,4%</td>
+            <td class="num tabular">~42 000</td>
+            <td class="num tabular" style="color:var(--n-500);">~316</td>
+            <td style="padding-left:16px; vertical-align:middle;">
+              <div class="barbar" style="height:14px;"><i style="width:9%;background:var(--ink);"></i></div>
+            </td>
+            <td class="t-small" style="color:var(--n-600);">Branded content y colaboradores Gonher</td>
+          </tr>
+          <tr style="background:var(--n-50);">
+            <td style="color:var(--n-500); font-style:italic;" colspan="2">Otras fuentes (Substack, foros, Bluesky, etc.)</td>
+            <td class="num tabular" style="color:var(--n-500);">31</td>
+            <td class="num tabular" style="color:var(--n-500);">~3 800</td>
+            <td class="num tabular" style="color:var(--n-400);">~123</td>
+            <td class="num tabular" style="color:var(--n-500);">1,0%</td>
+            <td style="color:var(--n-400); font-size:17px; font-style:italic;">Marginal · 9 fuentes con &lt; 20 menciones c/u</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="t-micro" style="color:var(--n-400);">Engagement estimado por plataforma derivado de proporciones del corpus y datos de autores conocidos. TikTok y YouTube concentran el ~67% del engagement total con apenas el 15% de las menciones — su impacto por post es 15× mayor que el de X.</p>
+    </div>
+
+    <footer class="slide-footer">
+      <span>05 · Distribución por plataforma</span>
+      <span class="right"><span style="font-family:var(--font-display);font-weight:900;font-size:18px;letter-spacing:0.06em;">artool.</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="05.2 Tipología de fuente y lectura estratégica">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">05 · Cap 2 · Distribución por plataforma</div>
+      <div class="crumb"><span>5.2</span><span class="dot">·</span><b>Tipología de fuente · lectura por cuadrante</b><span class="brand-badge ecosistema" style="margin-left:16px;">Ecosistema completo</span></div>
+    </header>
+
+    <div class="frame" style="gap:40px;">
+      <div class="col gap-3">
+        <p class="t-eyebrow">Cuatro grandes bloques de origen</p>
+        <h2 class="t-h2" style="max-width:1100px;">Social (70 %) · Medios (14 %) · Blogs/Newsletters (7 %) · Otros (9 %).</h2>
+      </div>
+
+      <div class="row gap-7" style="flex:1; align-items:stretch;">
+        <!-- Bloque 1: Social -->
+        <div class="col gap-5 fill" style="padding:32px; border:1px solid var(--n-100); border-top:4px solid var(--ink);">
+          <div class="row" style="justify-content:space-between; align-items:flex-start;">
+            <p class="t-eyebrow" style="font-size:14px;">Redes sociales</p>
+            <span class="bignum small" style="font-size:72px; color:var(--ink);">70%</span>
+          </div>
+          <p class="t-small" style="color:var(--n-600);">X, TikTok, YouTube, Facebook, Instagram, Bluesky · 2 125 menciones. Es el espacio donde Gonher compite con AutoZone y LTH en tiempo real. Alta volatilidad, alto alcance.</p>
+          <div class="row gap-4" style="margin-top:auto; flex-wrap:wrap;">
+            <span class="pill">X · 51 %</span>
+            <span class="pill">TikTok · 8 %</span>
+            <span class="pill">YouTube · 7 %</span>
+          </div>
+        </div>
+
+        <!-- Bloque 2: Medios -->
+        <div class="col gap-5 fill" style="padding:32px; border:1px solid var(--n-100); border-top:4px solid var(--n-400);">
+          <div class="row" style="justify-content:space-between; align-items:flex-start;">
+            <p class="t-eyebrow" style="font-size:14px;">Medios online</p>
+            <span class="bignum small" style="font-size:72px; color:var(--n-400);">14%</span>
+          </div>
+          <p class="t-small" style="color:var(--n-600);">Periódicos digitales, TV/radio online, agencias, revistas · 364 menciones. Notas rojas, sucesos de seguridad en estacionamientos AutoZone. Credibilidad alta, bajo engagement directo.</p>
+          <div class="row gap-4" style="margin-top:auto; flex-wrap:wrap;">
+            <span class="pill pill--neg">Notas rojas · predominio</span>
+          </div>
+        </div>
+
+        <!-- Bloque 3: Blogs / Newsletters -->
+        <div class="col gap-5 fill" style="padding:32px; border:1px solid var(--n-100); border-top:4px solid var(--n-300);">
+          <div class="row" style="justify-content:space-between; align-items:flex-start;">
+            <p class="t-eyebrow" style="font-size:14px;">Blogs y newsletters</p>
+            <span class="bignum small" style="font-size:72px; color:var(--n-300);">7%</span>
+          </div>
+          <p class="t-small" style="color:var(--n-600);">200 blogs + 11 Substacks · 211 menciones. Espacio de análisis financiero (AZO), tutoriales automotrices y contenido editorial de nicho. Long-tail de SEO relevante.</p>
+          <div class="row gap-4" style="margin-top:auto; flex-wrap:wrap;">
+            <span class="pill">Substack · financiero</span>
+            <span class="pill">Blogs técnicos · auto</span>
+          </div>
+        </div>
+
+        <!-- Bloque 4: Foros / otros -->
+        <div class="col gap-5 fill" style="padding:32px; border:1px solid var(--n-100); border-top:4px solid var(--n-200);">
+          <div class="row" style="justify-content:space-between; align-items:flex-start;">
+            <p class="t-eyebrow" style="font-size:14px;">Foros y otros</p>
+            <span class="bignum small" style="font-size:72px; color:var(--n-200);">9%</span>
+          </div>
+          <p class="t-small" style="color:var(--n-600);">Message boards, Dailymotion, press releases · presencia residual. Sin impacto significativo en el período, pero útiles como señal de temas emergentes especializados.</p>
+          <div class="row gap-4" style="margin-top:auto; flex-wrap:wrap;">
+            <span class="pill">Marginal · vigilancia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>05 · Distribución por plataforma</span>
+      <span class="right"><span style="font-family:var(--font-display);font-weight:900;font-size:18px;letter-spacing:0.06em;">artool.</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="06 Cap 3 · Autores y concentración">
+  <div class="slide dark">
+    <div class="divider">
+      <div class="top-row">
+        <span class="ch-eyebrow">Grupo Gonher · Monitoreo digital · Mar–Jun 2026</span>
+        <span class="brand-badge ecosistema">Ecosistema completo</span>
+      </div>
+      <div>
+        <div class="ch-num">03</div>
+        <div class="ch-title">Autores y<br>concentración.</div>
+        <p class="ch-desc">Un puñado de cuentas de video y detailing concentra más del 40 % de las interacciones. Gonher y AutoZone aparecen como emisores activos, pero sus voces propias no dominan el engagement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-label="06.1 Autores · Concentración del engagement">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">06 · Cap 3 · Autores y concentración</div>
+      <div class="crumb"><span>6.1</span><span class="dot">·</span><b>Concentración del engagement</b><span class="brand-badge ecosistema" style="margin-left:16px;">Ecosistema completo</span></div>
+    </header>
+
+    <div class="frame" style="flex-direction:row; gap:96px; align-items:center; padding-top:48px;">
+
+      <!-- Lado izquierdo: donut visual + cifra -->
+      <div class="col gap-5" style="flex:0 0 460px; align-items:center;">
+        <!-- SVG donut -->
+        <svg width="340" height="340" viewBox="0 0 340 340" style="flex-shrink:0;">
+          <circle cx="170" cy="170" r="140" fill="none" stroke="var(--n-100)" stroke-width="48"/>
+          <!-- 30% = obsidian.detail.l + prourbanshine => 2π·140 · 0.30 ≈ 263.9 -->
+          <circle cx="170" cy="170" r="140" fill="none" stroke="var(--ink)" stroke-width="48"
+                  stroke-dasharray="263.9 615.8" stroke-dashoffset="0" transform="rotate(-90 170 170)"/>
+          <!-- accent slice: obsidian.detail.l ~16% => 2π·140 · 0.16 ≈ 140.7 -->
+          <circle cx="170" cy="170" r="140" fill="none" stroke="var(--accent)" stroke-width="48"
+                  stroke-dasharray="140.7 738.9" stroke-dashoffset="0" transform="rotate(-90 170 170)"/>
+          <text x="170" y="158" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="64" fill="var(--ink)" letter-spacing="-2">30%</text>
+          <text x="170" y="192" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="16" fill="var(--n-500)" letter-spacing="1">DEL ENGAGEMENT</text>
+          <text x="170" y="213" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="16" fill="var(--n-500)" letter-spacing="1">EN 2 AUTORES</text>
+        </svg>
+        <div style="text-align:center; margin-top:8px;">
+          <p style="font-size:17px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--accent); margin-bottom:4px;">obsidian.detail.l · 111 000 interacciones</p>
+          <p style="font-size:17px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--n-600);">prourbanshine · ~97 000 interacciones</p>
+        </div>
+      </div>
+
+      <!-- Lado derecho: lectura + cifras -->
+      <div class="col gap-7 fill" style="justify-content:center;">
+        <div>
+          <p class="t-eyebrow" style="margin-bottom:16px;">Lectura del dato</p>
+          <h3 class="t-h3" style="max-width:920px; margin-bottom:24px;">Dos cuentas de detailing concentran el 30% de todo el engagement del ecosistema, con apenas 3 publicaciones entre ambas.</h3>
+          <p class="t-body t-body--muted" style="font-size:22px; max-width:880px;">Ninguna de estas cuentas es propiedad de Grupo Gonher ni de sus marcas. El engagement masivo del período proviene de creadores de contenido independientes de la comunidad automotriz y detailing, no de la comunicación institucional propia. Gonher, LTH y AutoZone México como cuentas propias suman en conjunto el 14,8% del engagement total.</p>
+        </div>
+
+        <div class="row gap-6" style="padding-top:32px; border-top:1px solid var(--n-100);">
+          <div class="stat" style="flex:1;">
+            <span class="label">Engagement total período</span>
+            <span class="value tabular">695 543</span>
+            <span class="sub">Todas las plataformas · 92 días</span>
+          </div>
+          <div class="stat" style="flex:1;">
+            <span class="label">Top 2 autores (terceros)</span>
+            <span class="value tabular accent-color">~208 K</span>
+            <span class="sub">obsidian.detail.l + prourbanshine<br>~30% del total del ecosistema</span>
+          </div>
+          <div class="stat" style="flex:1;">
+            <span class="label">Cuentas propias Gonher</span>
+            <span class="value tabular">103 K</span>
+            <span class="sub">Gonher + LTH + AZ México<br>14,8% del engagement total</span>
+          </div>
+        </div>
+        <p class="t-micro">Sin lista completa de cuentas propias es posible que existan cuentas de submarcas (Lubral, Mighty, Enerya, RIASA) no contabilizadas en este total.</p>
+      </div>
+
+    </div>
+
+    <footer class="slide-footer">
+      <span>06 · Autores y concentración</span>
+      <span class="right"><span style="font-family:var(--font-display);font-weight:900;font-size:18px;letter-spacing:0.06em;">artool.</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="06.2 Autores · Top cuentas propias y terceros por engagement">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">06 · Cap 3 · Autores y concentración</div>
+      <div class="crumb"><span>6.2</span><span class="dot">·</span><b>Top autores por engagement</b><span class="brand-badge ecosistema" style="margin-left:16px;">Ecosistema completo</span></div>
+    </header>
+
+    <div class="frame" style="padding-top:40px; gap:28px;">
+
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:8px;">
+        <div>
+          <p class="t-eyebrow" style="margin-bottom:8px;">Base: terceros + cuentas propias · ordenado por interacciones</p>
+          <h2 class="t-h2" style="font-size:40px; max-width:1200px;">Las cuentas propias de Gonher lideran en menciones; terceros de detailing dominan en engagement puntual.</h2>
+        </div>
+      </div>
+
+      <div class="row gap-7" style="flex:1; align-items:stretch;">
+
+        <!-- Tabla izquierda: CUENTAS PROPIAS -->
+        <div class="col gap-4 fill">
+          <div style="display:flex; align-items:center; gap:10px; padding-bottom:10px; border-bottom:2px solid var(--accent);">
+            <span class="brand-badge gonher">Marcas Gonher</span>
+            <span style="font-size:16px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--n-500);">Cuentas propias del ecosistema</span>
+          </div>
+          <table class="tbl" style="font-size:19px;">
+            <colgroup>
+              <col style="width:36px;">
+              <col style="width:200px;">
+              <col style="width:180px;">
+              <col style="width:80px;">
+              <col style="width:70px;">
+              <col style="width:130px;">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Autor</th>
+                <th>Plataforma · Rol</th>
+                <th class="num">Eng.</th>
+                <th class="num">Mencs.</th>
+                <th style="padding-left:8px;">Peso eng.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:900; color:var(--accent);">01</td>
+                <td class="strong">Baterías LTH</td>
+                <td style="color:var(--n-500); font-size:17px;">Instagram · YouTube · Marca propia</td>
+                <td class="num tabular strong" style="color:var(--accent);">64 384</td>
+                <td class="num tabular">80</td>
+                <td style="padding-left:8px; vertical-align:middle;"><div class="barbar" style="height:12px;"><i style="width:100%;background:var(--accent);"></i></div></td>
+              </tr>
+              <tr>
+                <td style="font-weight:900;">02</td>
+                <td class="strong">AutoZone México</td>
+                <td style="color:var(--n-500); font-size:17px;">Instagram · X · Franquicia</td>
+                <td class="num tabular strong">20 849</td>
+                <td class="num tabular">83</td>
+                <td style="padding-left:8px; vertical-align:middle;"><div class="barbar" style="height:12px;"><i style="width:32%;background:var(--ink);"></i></div></td>
+              </tr>
+              <tr>
+                <td style="font-weight:900;">03</td>
+                <td class="strong">Grupo Gonher</td>
+                <td style="color:var(--n-500); font-size:17px;">Instagram · Marca institucional</td>
+                <td class="num tabular strong">17 492</td>
+                <td class="num tabular">49</td>
+                <td style="padding-left:8px; vertical-align:middle;"><div class="barbar" style="height:12px;"><i style="width:27%;background:var(--ink);"></i></div></td>
+              </tr>
+              <tr>
+                <td style="font-weight:900; color:var(--n-400);">04</td>
+                <td class="strong" style="color:var(--n-500);">Lubral / Químca Goncal</td>
+                <td style="color:var(--n-400); font-size:17px;">Instagram · Submarca</td>
+                <td class="num tabular" style="color:var(--n-400);">N/D</td>
+                <td class="num tabular" style="color:var(--n-400);">—</td>
+                <td style="padding-left:8px; vertical-align:middle;"><div class="barbar" style="height:12px;"><i style="width:3%;background:var(--n-300);"></i></div></td>
+              </tr>
+              <tr>
+                <td style="font-weight:900; color:var(--n-400);">05</td>
+                <td class="strong" style="color:var(--n-500);">Enerya / RIASA / Mighty</td>
+                <td style="color:var(--n-400); font-size:17px;">IG Grupo Gonher · Submarcas</td>
+                <td class="num tabular" style="color:var(--n-400);">N/D</td>
+                <td class="num tabular" style="color:var(--n-400);">—</td>
+                <td style="padding-left:8px; vertical-align:middle;"><div class="barbar" style="height:12px;"><i style="width:3%;background:var(--n-300);"></i></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="t-micro">N/D: submarcas publican desde @grupogonher; engagement no segregable sin handles propios. Fundación Gonher no registra menciones en el período.</p>
+        </div>
+
+        <!-- Divisor -->
+        <div style="width:1px; background:var(--n-100); flex-shrink:0;"></div>
+
+        <!-- Tabla derecha: TERCEROS -->
+        <div class="col gap-4 fill">
+          <div style="display:flex; align-items:center; gap:10px; padding-bottom:10px; border-bottom:2px solid var(--n-400);">
+            <span class="brand-badge competencia">Terceros</span>
+            <span style="font-size:16px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--n-500);">Cuentas externas · mayor engagement</span>
+          </div>
+          <table class="tbl" style="font-size:19px;">
+            <colgroup>
+              <col style="width:36px;">
+              <col style="width:200px;">
+              <col style="width:180px;">
+              <col style="width:80px;">
+              <col style="width:70px;">
+              <col style="width:130px;">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Autor</th>
+                <th>Plataforma · Tipología</th>
+                <th class="num">Eng.</th>
+                <th class="num">Mencs.</th>
+                <th style="padding-left:8px;">Peso eng.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:900; color:var(--accent);">01</td>
+                <td class="strong">obsidian.detail.l</td>
+                <td style="color:var(--n-500); font-size:17px;">TikTok · Detailing / entretenimiento</td>
+                <td class="num tabular strong" style="color:var(--accent);">111 000</td>
+                <td class="num tabular">2</td>
+                <td style="padding-left:8px; vertical-align:middle;"><div class="barbar" style="height:12px;"><i style="width:100%;background:var(--accent);"></i></div></td>
+              </tr>
+              <tr>
+                <td style="font-weight:900;">02</td>
+                <td class="strong">prourbanshine</td>
+                <td style="color:var(--n-500); font-size:17px;">TikTok · Detailing / cultura auto</td>
+                <td class="num tabular strong">~97 000</td>
+                <td class="num tabular">est.</td>
+                <td style="padding-left:8px; vertical-align:middle;"><div class="barbar" style="height:12px;"><i style="width:87%;background:var(--ink);"></i></div></td>
+              </tr>
+              <tr>
+                <td style="font-weight:900;">03</td>
+                <td class="strong">Ciudadanía / X</td>
+                <td style="color:var(--n-500); font-size:17px;">X (Twitter) · Viralización colectiva</td>
+                <td class="num tabular strong">~148 000</td>
+                <td class="num tabular">~800</td>
+                <td style="padding-left:8px; vertical-align:middle;"><div class="barbar" style="height:12px;"><i style="width:75%;background:var(--n-400);"></i></div></td>
+              </tr>
+              <tr>
+                <td style="font-weight:900;">04</td>
+                <td class="strong">Creadores YouTube</td>
+                <td style="color:var(--n-500); font-size:17px;">YouTube · Reviews / tutoriales auto</td>
+                <td class="num tabular strong">~118 000</td>
+                <td class="num tabular">212</td>
+                <td style="padding-left:8px; vertical-align:middle;"><div class="barbar" style="height:12px;"><i style="width:60%;background:var(--n-400);"></i></div></td>
+              </tr>
+              <tr>
+                <td style="font-weight:900;">05</td>
+                <td class="strong">Comunidades Facebook</td>
+                <td style="color:var(--n-500); font-size:17px;">Facebook · Grupos de consumidores</td>
+                <td class="num tabular strong">~22 000</td>
+                <td class="num tabular">296</td>
+                <td style="padding-left:8px; vertical-align:middle;"><div class="barbar" style="height:12px;"><i style="width:20%;background:var(--n-400);"></i></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="t-micro">Engagement de X y YouTube es agregado por plataforma, no por autor individual. obsidian.detail.l y prourbanshine tienen engagement individual verificado en el corpus; el resto son estimaciones por plataforma.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>06 · Autores y concentración</span>
+      <span class="right"><span style="font-family:var(--font-display);font-weight:900;font-size:18px;letter-spacing:0.06em;">artool.</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="07 Cap 4 · Narrativas y sentimiento">
+  <div class="slide dark">
+    <div class="divider">
+      <div class="top-row">
+        <span class="ch-eyebrow">Capítulo 4</span>
+      </div>
+      <div>
+        <div class="ch-num">04</div>
+        <div class="ch-title">Narrativas<br>y sentimiento.</div>
+        <p class="ch-desc">Qué se dice sobre Gonher y su ecosistema. Seis tramas dominantes articulan el 96 % de la conversación — solo una habla de Gonher directamente; el resto la rodea sin nombrarla.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-label="07.1 Sentimiento global · solo terceros">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">07 · Cap 4 · Narrativas y sentimiento</div>
+      <div class="crumb"><span>7.1</span><span class="dot">·</span><b>Distribución de sentimiento</b><span class="brand-badge ecosistema" style="margin-left:16px;">Ecosistema completo</span></div>
+    </header>
+    <div class="frame" style="justify-content: space-between;">
+
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px;">
+        <div>
+          <p class="t-eyebrow" style="margin-bottom:12px;">Sentimiento · conversación de terceros · n = 3,026</p>
+          <h2 class="t-title" style="max-width:900px;">El neutro domina, pero el negativo supera al positivo en 2:1.</h2>
+        </div>
+        <div style="display:flex; gap:24px; align-items:center;">
+          <span class="pill pill--neg">Negativo · 21,9 %</span>
+          <span class="pill pill--neu">Neutro · 48,4 %</span>
+          <span class="pill pill--pos">Positivo · 29,7 %</span>
+        </div>
+      </div>
+
+      <!-- Stacked bar principal -->
+      <div style="display:flex; height:108px; border:1px solid var(--n-200); overflow:hidden; border-radius:4px;">
+        <div style="background:var(--neg-fill); width:21.9%; display:flex; align-items:center; justify-content:center; color:#fff; font-family:var(--font-display); font-weight:900; font-size:38px; letter-spacing:-0.02em;">21,9 %</div>
+        <div style="background:var(--neu-fill); width:48.4%; display:flex; align-items:center; justify-content:center; color:var(--ink); font-family:var(--font-display); font-weight:900; font-size:38px; letter-spacing:-0.02em;">48,4 %</div>
+        <div style="background:var(--pos-fill); width:29.7%; display:flex; align-items:center; justify-content:center; color:#fff; font-family:var(--font-display); font-weight:900; font-size:38px; letter-spacing:-0.02em;">29,7 %</div>
+      </div>
+
+      <!-- Leyenda + lectura -->
+      <div class="row" style="margin-top:40px; gap:64px;">
+        <div class="col gap-3" style="flex:1; border-top:3px solid var(--neg-fill); padding-top:20px;">
+          <p class="t-eyebrow neg-color" style="font-size:16px;">Negativo · 662 menciones</p>
+          <p class="t-small">Quejas de servicio, hechos viales y de seguridad pública ubicados en estacionamientos de AutoZone, y cobertura financiera adversa de AZO dominan este segmento. Gonher aparece en quejas de garantías.</p>
+        </div>
+        <div class="col gap-3" style="flex:1; border-top:3px solid var(--n-300); padding-top:20px;">
+          <p class="t-eyebrow" style="font-size:16px;">Neutro · 1,465 menciones</p>
+          <p class="t-small">Menciones descriptivas, notas de prensa sin valoración, referencias geográficas y contenido de cultura automotriz sin carga emocional explícita.</p>
+        </div>
+        <div class="col gap-3" style="flex:1; border-top:3px solid var(--pos-fill); padding-top:20px;">
+          <p class="t-eyebrow pos-color" style="font-size:16px;">Positivo · 899 menciones</p>
+          <p class="t-small">Contenido de orgullo laboral y empleabilidad (Gonher), identidad cultural masculina en torno a AutoZone, y detailing / comunidades de entusiastas del automóvil.</p>
+        </div>
+      </div>
+
+    </div>
+    <footer class="slide-footer">
+      <span>07 · Narrativas y sentimiento</span>
+      <span class="right"><span style="font-size:13px; letter-spacing:0.1em; color:var(--n-400);">ARTOOL</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="07.2 Tabla de narrativas dominantes">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">07 · Cap 4 · Narrativas y sentimiento</div>
+      <div class="crumb"><span>7.2</span><span class="dot">·</span><b>Narrativas dominantes</b><span class="brand-badge ecosistema" style="margin-left:16px;">Ecosistema completo</span></div>
+    </header>
+    <div class="frame" style="justify-content:flex-start;">
+
+      <div style="margin-bottom:32px;">
+        <p class="t-eyebrow" style="margin-bottom:10px;">6 tramas · 96 % del corpus analizado</p>
+        <h2 class="t-title" style="max-width:1100px;">AutoZone concentra 4 de las 6 narrativas; Gonher figura solo en la narrativa de empleador.</h2>
+      </div>
+
+      <table class="tbl" style="font-size:20px;">
+        <colgroup>
+          <col style="width:360px;">
+          <col style="width:320px;">
+          <col style="width:100px;">
+          <col style="width:200px;">
+          <col style="width:540px;">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Narrativa</th>
+            <th>Voceros principales</th>
+            <th class="num">% corpus</th>
+            <th>Sentimiento</th>
+            <th>Frase prototípica</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="strong" style="color:var(--ink);">AutoZone · referencia vial y de seguridad</td>
+            <td style="color:var(--n-500);">Medios locales, reporteros ciudadanos</td>
+            <td class="num strong">25 %</td>
+            <td><span class="pill pill--neg" style="font-size:14px;">Negativo</span></td>
+            <td><span class="mono" style="font-size:15px; color:var(--n-600);">"Sucedió en el estacionamiento de Autozone en Av Central, Ecatepec"</span></td>
+          </tr>
+          <tr>
+            <td class="strong">AutoZone · espacio cultural y pertenencia</td>
+            <td style="color:var(--n-500);">Ciudadanía, creadores detailing</td>
+            <td class="num strong">22 %</td>
+            <td><span class="pill pill--pos" style="font-size:14px;">Positivo</span></td>
+            <td><span class="mono" style="font-size:15px; color:var(--n-600);">"El AutoZone es como un Walmart… para hombres"</span></td>
+          </tr>
+          <tr>
+            <td class="strong" style="color:var(--accent);">Gonher · empleador y orgullo interno</td>
+            <td style="color:var(--n-500);">Marca institucional, RRHH, colaboradores</td>
+            <td class="num strong" style="color:var(--accent);">14 %</td>
+            <td><span class="pill pill--pos" style="font-size:14px;">Positivo</span></td>
+            <td><span class="mono" style="font-size:15px; color:var(--n-600);">"El éxito tiene nombre y apellido: el de nuestros colaboradores"</span></td>
+          </tr>
+          <tr>
+            <td class="strong">Quejas de servicio y garantías</td>
+            <td style="color:var(--n-500);">Clientes, Profeco, consumidores</td>
+            <td class="num strong">15 %</td>
+            <td><span class="pill pill--neg" style="font-size:14px;">Negativo</span></td>
+            <td><span class="mono" style="font-size:15px; color:var(--n-600);">"Muy malas garantías tienen en México"</span></td>
+          </tr>
+          <tr>
+            <td class="strong">AZO · activo financiero e inversión</td>
+            <td style="color:var(--n-500);">Medios financieros, analistas bursátiles</td>
+            <td class="num strong">12 %</td>
+            <td><span class="pill" style="font-size:14px; color:var(--n-600);">Polarizado</span></td>
+            <td><span class="mono" style="font-size:15px; color:var(--n-600);">"AutoZone registró su peor día de negociación en más de cuatro años"</span></td>
+          </tr>
+          <tr>
+            <td class="strong">Escasez de lubricantes · crisis geopolítica</td>
+            <td style="color:var(--n-500);">Cuentas de viralización, ciudadanía</td>
+            <td class="num strong">8 %</td>
+            <td><span class="pill pill--neg" style="font-size:14px;">Negativo</span></td>
+            <td><span class="mono" style="font-size:15px; color:var(--n-600);">"…largest supply shortage of lubricating fluids in modern history"</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="t-micro" style="margin-top:20px; color:var(--n-400);">% calculado sobre corpus analizado (n = 3,026). Las narrativas no son mutuamente excluyentes; suma supera 100 % por posts multi-tema. Gonher no aparece como protagonista en ninguna narrativa distinta a la de empleador.</p>
+    </div>
+    <footer class="slide-footer">
+      <span>07 · Narrativas y sentimiento</span>
+      <span class="right"><span style="font-size:13px; letter-spacing:0.1em; color:var(--n-400);">ARTOOL</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="07.3 Cita representativa · narrativa cultural AutoZone">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">07 · Cap 4 · Narrativas y sentimiento</div>
+      <div class="crumb"><span>7.3</span><span class="dot">·</span><b>Cita representativa</b><span class="brand-badge competencia" style="margin-left:16px;">Competencia · AutoZone</span></div>
+    </header>
+    <div class="frame" style="justify-content:center;">
+
+      <div style="max-width:1400px;">
+        <p class="t-eyebrow" style="margin-bottom:32px;">Narrativa de mayor engagement · AutoZone como espacio cultural</p>
+        <hr class="rule-strong" style="margin-bottom:40px;">
+        <blockquote class="quote" style="font-size:52px; max-width:1300px;">
+          "El AutoZone es como un Walmart… para hombres. Entras por una cosa y sales con el carrito lleno."
+          <span class="source">Ciudadanía / TikTok · Comunidad de entusiastas del automóvil · 103,474 interacciones</span>
+        </blockquote>
+        <div class="row" style="margin-top:56px; gap:64px;">
+          <div class="col gap-3" style="flex:1; border-top:1px solid var(--n-200); padding-top:20px;">
+            <p class="t-eyebrow" style="font-size:15px;">¿Por qué importa?</p>
+            <p class="t-small">AutoZone ha capturado un espacio de identidad cultural que Gonher, como propietario del retail, no está reclamando. La marca visible para el usuario final es AutoZone, no Gonher.</p>
+          </div>
+          <div class="col gap-3" style="flex:1; border-top:1px solid var(--n-200); padding-top:20px;">
+            <p class="t-eyebrow" style="font-size:15px;">Perfil del vocero</p>
+            <p class="t-small">Creadores de contenido y detailers en TikTok e Instagram. Audiencias de 50K–500K seguidores. Ninguno menciona a Grupo Gonher en el contenido analizado.</p>
+          </div>
+          <div class="col gap-3" style="flex:1; border-top:1px solid var(--n-200); padding-top:20px;">
+            <p class="t-eyebrow" style="font-size:15px;">Oportunidad detectada</p>
+            <p class="t-small">La comunidad de entusiastas es receptiva y amplia. Existe apertura para que Gonher, como entidad que opera la cadena, aparezca en este espacio sin tensión con la identidad AutoZone.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <footer class="slide-footer">
+      <span>07 · Narrativas y sentimiento</span>
+      <span class="right"><span style="font-size:13px; letter-spacing:0.1em; color:var(--n-400);">ARTOOL</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="07.4 Vocería dominante por narrativa">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">07 · Cap 4 · Narrativas y sentimiento</div>
+      <div class="crumb"><span>7.4</span><span class="dot">·</span><b>Voceros por narrativa</b><span class="brand-badge ecosistema" style="margin-left:16px;">Ecosistema completo</span></div>
+    </header>
+    <div class="frame" style="justify-content:flex-start;">
+
+      <div style="margin-bottom:36px;">
+        <p class="t-eyebrow" style="margin-bottom:10px;">Quién habla y dónde</p>
+        <h2 class="t-title" style="max-width:1100px;">Gonher solo tiene voz propia en la narrativa laboral. En las demás, hablan terceros sin ancla corporativa.</h2>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:48px;">
+
+        <div class="col gap-5" style="border-top:3px solid var(--accent); padding-top:20px;">
+          <p class="t-eyebrow" style="font-size:16px; color:var(--accent);">Gonher empleador · 14 %</p>
+          <p class="t-small" style="font-weight:600; color:var(--ink);">Marca institucional (owned), colaboradores, RRHH</p>
+          <p class="t-small">Contenido generado principalmente desde los canales propios de Grupo Gonher. Alta positividad, baja tracción externa. El discurso de orgullo laboral no sale del círculo interno.</p>
+        </div>
+
+        <div class="col gap-5" style="border-top:3px solid var(--n-300); padding-top:20px;">
+          <p class="t-eyebrow" style="font-size:16px;">AutoZone cultural · 22 %</p>
+          <p class="t-small" style="font-weight:600; color:var(--ink);">Creadores de contenido TikTok/Instagram, detailers</p>
+          <p class="t-small">Usuarios individuales con audiencias de decenas de miles. Positivo, orgánico, sin vínculo declarado con la marca. Mayor engagement por post del corpus.</p>
+        </div>
+
+        <div class="col gap-5" style="border-top:3px solid var(--neg-fill); padding-top:20px;">
+          <p class="t-eyebrow neg-color" style="font-size:16px;">Seguridad / vial · 25 %</p>
+          <p class="t-small" style="font-weight:600; color:var(--ink);">Medios locales, reporteros ciudadanos, cuentas de nota roja</p>
+          <p class="t-small">Cobertura de incidentes usando la tienda como referencia geográfica. Gonher no aparece, pero AutoZone —su franquicia— absorbe el contexto negativo de forma indirecta.</p>
+        </div>
+
+        <div class="col gap-5" style="border-top:3px solid var(--neg-fill); padding-top:20px;">
+          <p class="t-eyebrow neg-color" style="font-size:16px;">Quejas de servicio · 15 %</p>
+          <p class="t-small" style="font-weight:600; color:var(--ink);">Clientes, Profeco, usuarios de X y Facebook</p>
+          <p class="t-small">Reclamos sobre garantías de baterías LTH y productos AutoZone. Gonher aparece en algunas menciones de forma directa, principalmente en X.</p>
+        </div>
+
+        <div class="col gap-5" style="border-top:3px solid var(--n-300); padding-top:20px;">
+          <p class="t-eyebrow" style="font-size:16px;">AZO bursátil · 12 %</p>
+          <p class="t-small" style="font-weight:600; color:var(--ink);">Medios financieros, analistas, newsletters</p>
+          <p class="t-small">Seguimiento de la acción AutoZone Inc. en mercados. No menciona directamente a Gonher; puede afectar percepción de salud del negocio en audiencias financieras especializadas.</p>
+        </div>
+
+        <div class="col gap-5" style="border-top:3px solid var(--neg-fill); padding-top:20px;">
+          <p class="t-eyebrow neg-color" style="font-size:16px;">Escasez lubricantes · 8 %</p>
+          <p class="t-small" style="font-weight:600; color:var(--ink);">Cuentas de viralización, ciudadanía angloparlante</p>
+          <p class="t-small">Narrativa de memo interno viral. Afecta indirectamente la percepción del sector. Gonher no es mencionado; riesgo de contagio si la narrativa cruza al mercado mexicano.</p>
+        </div>
+
+      </div>
+
+    </div>
+    <footer class="slide-footer">
+      <span>07 · Narrativas y sentimiento</span>
+      <span class="right"><span style="font-size:13px; letter-spacing:0.1em; color:var(--n-400);">ARTOOL</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="08 Cap 5 · Imagen institucional de Gonher">
+  <div class="slide dark">
+    <div class="divider">
+      <div class="top-row">
+        <span class="ch-eyebrow">Capítulo 5</span>
+      </div>
+      <div>
+        <div class="ch-num">05</div>
+        <div class="ch-title">Imagen<br>institucional.</div>
+        <p class="ch-desc">Cómo se proyecta Grupo Gonher como empresa —no como producto. Qué dice la conversación sobre su rol como empleador, su presencia cultural y las brechas entre lo que comunica y lo que terceros perciben.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-label="08.1 Presencia de Gonher como marca institucional">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">08 · Cap 5 · Imagen institucional de Gonher</div>
+      <div class="crumb"><span>8.1</span><span class="dot">·</span><b>Peso de Gonher en el corpus</b><span class="brand-badge gonher" style="margin-left:16px;">Marcas Gonher</span></div>
+    </header>
+    <div class="frame" style="flex-direction:row; gap:80px; align-items:stretch;">
+
+      <!-- Columna izquierda: big numbers -->
+      <div class="col gap-7" style="width:560px; flex-shrink:0; justify-content:center;">
+        <div class="stat">
+          <span class="label">Menciones · Grupo Gonher</span>
+          <span class="value tabular" style="font-size:88px;">49</span>
+          <span class="sub">Posts publicados desde cuentas propias · owned media</span>
+        </div>
+        <div class="stat">
+          <span class="label">Engagement · cuentas propias</span>
+          <span class="value tabular" style="font-size:88px;">17,492</span>
+          <span class="sub">Interacciones totales en el período · tercer mayor acumulado del corpus</span>
+        </div>
+        <div class="stat">
+          <span class="label">Promedio por post</span>
+          <span class="value tabular" style="font-size:88px; color:var(--accent);">357</span>
+          <span class="sub">Interacciones / post propio · por encima de la mediana del corpus (0)</span>
+        </div>
+      </div>
+
+      <!-- Divisor -->
+      <div style="width:1px; background:var(--n-100); flex-shrink:0;"></div>
+
+      <!-- Columna derecha: lectura contextual -->
+      <div class="col gap-6" style="flex:1; justify-content:center;">
+        <div>
+          <p class="t-eyebrow" style="margin-bottom:16px;">Lectura de contexto</p>
+          <h3 class="t-h3" style="max-width:960px; margin-bottom:24px;">Gonher tiene engagement real como empleador, pero su voz institucional representa menos del 2 % del corpus total.</h3>
+          <p class="t-body t-body--muted" style="max-width:920px; font-size:24px;">De los 3,026 documentos analizados, 49 corresponden a publicaciones de Grupo Gonher como entidad. El resto de la conversación en torno al ecosistema (AutoZone, LTH, sector automotriz) es generada por terceros. La marca existe y tiene tracción, pero su presencia institucional es marginal frente al volumen de conversación que rodea su negocio.</p>
+        </div>
+        <div style="border-top:1px solid var(--n-100); padding-top:28px;">
+          <p class="t-eyebrow" style="font-size:15px; margin-bottom:12px;">Nota metodológica</p>
+          <p class="t-micro">No se recibió lista de cuentas propias completa. Los 49 posts de "Grupo Gonher" reflejan las menciones bajo ese nombre exacto en el dataset. Pueden existir cuentas adicionales no contabilizadas. El engagement de 17,492 interacciones supera el umbral de 5,000 que justifica análisis de owned media diferenciado.</p>
+        </div>
+      </div>
+
+    </div>
+    <footer class="slide-footer">
+      <span>08 · Imagen institucional de Gonher</span>
+      <span class="right"><span style="font-size:13px; letter-spacing:0.1em; color:var(--n-400);">ARTOOL</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="08.2 Narrativa empleadora · fortalezas y límites">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">08 · Cap 5 · Imagen institucional de Gonher</div>
+      <div class="crumb"><span>8.2</span><span class="dot">·</span><b>Narrativa de empleador</b><span class="brand-badge gonher" style="margin-left:16px;">Marcas Gonher</span></div>
+    </header>
+    <div class="frame" style="flex-direction:row; gap:72px; align-items:stretch;">
+
+      <!-- Izquierda: quote / evidencia -->
+      <div class="col gap-6" style="flex:1.1; justify-content:center;">
+        <p class="t-eyebrow" style="margin-bottom:16px;">Voz predominante · contenido propio (owned)</p>
+        <hr class="rule-strong" style="margin-bottom:28px;">
+        <blockquote class="quote" style="font-size:40px; line-height:1.2; max-width:840px;">
+          "En Grupo Gonher, el éxito tiene nombre y apellido: el de nuestros colaboradores."
+          <span class="source">Grupo Gonher · Canal institucional · 357 interacciones promedio / post</span>
+        </blockquote>
+        <div style="margin-top:36px; border-top:1px solid var(--n-100); padding-top:24px;">
+          <p class="t-small" style="color:var(--n-500);">Temáticas recurrentes en los 49 posts propios: logros de colaboradores, convocatorias de empleo, reconocimientos internos, aniversarios y cultura organizacional. El tono es consistente y positivo. Ausencia de narrativa sobre responsabilidad social, comunidad o medio ambiente.</p>
+        </div>
+      </div>
+
+      <!-- Divisor -->
+      <div style="width:1px; background:var(--n-100); flex-shrink:0;"></div>
+
+      <!-- Derecha: fortalezas y límites -->
+      <div class="col gap-6" style="flex:1; justify-content:center;">
+        <div style="border-top:3px solid var(--pos-fill); padding-top:20px;">
+          <p class="t-eyebrow pos-color" style="font-size:16px; margin-bottom:12px;">Lo que funciona</p>
+          <div class="numlist" style="gap:20px;">
+            <div class="item" style="grid-template-columns:56px 1fr; gap:16px;">
+              <span class="num" style="font-size:36px;">A</span>
+              <div><h4 style="font-size:22px;">Consistencia de tono</h4><p style="font-size:18px;">El discurso de orgullo laboral es coherente a lo largo de los 49 posts. No hay contradicción interna.</p></div>
+            </div>
+            <div class="item" style="grid-template-columns:56px 1fr; gap:16px;">
+              <span class="num" style="font-size:36px;">B</span>
+              <div><h4 style="font-size:22px;">Engagement superior al promedio</h4><p style="font-size:18px;">Con 357 interacciones / post, Gonher supera la mediana del corpus (0) y el promedio de medios (≈ 50).</p></div>
+            </div>
+            <div class="item" style="grid-template-columns:56px 1fr; gap:16px;">
+              <span class="num" style="font-size:36px;">C</span>
+              <div><h4 style="font-size:22px;">Comunidad laboral activa</h4><p style="font-size:18px;">Colaboradores comparten y reaccionan a los posts institucionales, generando amplificación orgánica.</p></div>
+            </div>
+          </div>
+        </div>
+        <div style="border-top:3px solid var(--neg-fill); padding-top:20px;">
+          <p class="t-eyebrow neg-color" style="font-size:16px; margin-bottom:12px;">Dónde hay espacio de mejora</p>
+          <div class="numlist" style="gap:20px;">
+            <div class="item" style="grid-template-columns:56px 1fr; gap:16px;">
+              <span class="num" style="font-size:36px;">D</span>
+              <div><h4 style="font-size:22px;">Sin tracción externa</h4><p style="font-size:18px;">El discurso no sale del círculo de colaboradores. Medios, analistas y comunidad automotriz no lo amplifican.</p></div>
+            </div>
+            <div class="item" style="grid-template-columns:56px 1fr; gap:16px;">
+              <span class="num" style="font-size:36px;">E</span>
+              <div><h4 style="font-size:22px;">Ausencia de relato corporativo más amplio</h4><p style="font-size:18px;">No hay narrativa de empresa familiar, historia, responsabilidad sectorial ni posicionamiento estratégico en el corpus.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <footer class="slide-footer">
+      <span>08 · Imagen institucional de Gonher</span>
+      <span class="right"><span style="font-size:13px; letter-spacing:0.1em; color:var(--n-400);">ARTOOL</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="08.3 Brechas entre imagen proyectada y percepción externa">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">08 · Cap 5 · Imagen institucional de Gonher</div>
+      <div class="crumb"><span>8.3</span><span class="dot">·</span><b>Brechas de imagen</b><span class="brand-badge gonher" style="margin-left:16px;">Marcas Gonher</span></div>
+    </header>
+    <div class="frame" style="justify-content:flex-start;">
+
+      <div style="margin-bottom:40px;">
+        <p class="t-eyebrow" style="margin-bottom:10px;">Lo que Gonher dice vs lo que el entorno escucha</p>
+        <h2 class="t-title" style="max-width:1200px;">La marca proyecta orgullo laboral; el entorno la asocia principalmente con AutoZone, no con Gonher.</h2>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1px 1fr; gap:0; height:500px;">
+
+        <!-- Columna A: lo que Gonher comunica -->
+        <div class="col gap-5" style="padding-right:64px; justify-content:flex-start; padding-top:8px;">
+          <p class="t-eyebrow" style="font-size:16px; color:var(--ink);">Lo que Gonher comunica (owned)</p>
+          <div class="col gap-4" style="margin-top:8px;">
+            <div style="display:flex; gap:16px; align-items:flex-start; border-bottom:1px solid var(--n-100); padding-bottom:20px;">
+              <div style="width:8px; height:8px; border-radius:50%; background:var(--pos-fill); margin-top:10px; flex-shrink:0;"></div>
+              <p class="t-small"><strong>Orgullo de colaboradores</strong> — logros individuales, reconocimientos, cumpleaños de empresa</p>
+            </div>
+            <div style="display:flex; gap:16px; align-items:flex-start; border-bottom:1px solid var(--n-100); padding-bottom:20px;">
+              <div style="width:8px; height:8px; border-radius:50%; background:var(--pos-fill); margin-top:10px; flex-shrink:0;"></div>
+              <p class="t-small"><strong>Cultura organizacional positiva</strong> — valores, equipo, pertenencia interna</p>
+            </div>
+            <div style="display:flex; gap:16px; align-items:flex-start; border-bottom:1px solid var(--n-100); padding-bottom:20px;">
+              <div style="width:8px; height:8px; border-radius:50%; background:var(--pos-fill); margin-top:10px; flex-shrink:0;"></div>
+              <p class="t-small"><strong>Vacantes y empleabilidad</strong> — convocatorias, crecimiento del equipo</p>
+            </div>
+            <div style="display:flex; gap:16px; align-items:flex-start;">
+              <div style="width:8px; height:8px; border-radius:50%; background:var(--n-300); margin-top:10px; flex-shrink:0;"></div>
+              <p class="t-small" style="color:var(--n-500);">Sin narrativa de: RSE, historia, sector automotriz, posicionamiento estratégico</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divisor vertical -->
+        <div style="background:var(--n-100);"></div>
+
+        <!-- Columna B: lo que el entorno dice -->
+        <div class="col gap-5" style="padding-left:64px; justify-content:flex-start; padding-top:8px;">
+          <p class="t-eyebrow" style="font-size:16px; color:var(--ink);">Lo que el entorno dice sobre el ecosistema</p>
+          <div class="col gap-4" style="margin-top:8px;">
+            <div style="display:flex; gap:16px; align-items:flex-start; border-bottom:1px solid var(--n-100); padding-bottom:20px;">
+              <div style="width:8px; height:8px; border-radius:50%; background:var(--neg-fill); margin-top:10px; flex-shrink:0;"></div>
+              <p class="t-small"><strong>AutoZone como marca visible</strong> — identidad, cultura, referencia espacial; Gonher invisible</p>
+            </div>
+            <div style="display:flex; gap:16px; align-items:flex-start; border-bottom:1px solid var(--n-100); padding-bottom:20px;">
+              <div style="width:8px; height:8px; border-radius:50%; background:var(--neg-fill); margin-top:10px; flex-shrink:0;"></div>
+              <p class="t-small"><strong>Quejas de garantías</strong> — LTH y productos AutoZone son los blancos; Gonher aparece tangencialmente</p>
+            </div>
+            <div style="display:flex; gap:16px; align-items:flex-start; border-bottom:1px solid var(--n-100); padding-bottom:20px;">
+              <div style="width:8px; height:8px; border-radius:50%; background:var(--neg-fill); margin-top:10px; flex-shrink:0;"></div>
+              <p class="t-small"><strong>Hechos de seguridad asociados a locales AutoZone</strong> — cobertura de nota roja sin mencionar al propietario</p>
+            </div>
+            <div style="display:flex; gap:16px; align-items:flex-start;">
+              <div style="width:8px; height:8px; border-radius:50%; background:var(--n-300); margin-top:10px; flex-shrink:0;"></div>
+              <p class="t-small" style="color:var(--n-500);">Gonher como empleador: solo 14 % del corpus, mayoritariamente desde cuentas propias</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <footer class="slide-footer">
+      <span>08 · Imagen institucional de Gonher</span>
+      <span class="right"><span style="font-size:13px; letter-spacing:0.1em; color:var(--n-400);">ARTOOL</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="09 Cap 6 · Monitoreo competitivo: AutoZone y LTH">
+  <div class="slide dark">
+    <div class="divider">
+      <div class="top-row">
+        <span class="ch-eyebrow">Capítulo 6</span>
+        <span class="brand-badge competencia">Competencia · AutoZone / LTH</span>
+      </div>
+      <div>
+        <div class="ch-num">06</div>
+        <div class="ch-title">Monitoreo<br>competitivo.</div>
+        <p class="ch-desc">AutoZone y LTH en contraste con Gonher. Volumen, sentimiento y narrativas de los competidores para identificar brechas reputacionales y puntos de paridad o ventaja.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-label="09.1 Volumen y engagement · Gonher vs AutoZone vs LTH">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">09 · Cap 6 · Monitoreo competitivo</div>
+      <div class="crumb"><span>9.1</span><span class="dot">·</span><b>Volumen y engagement comparado</b><span class="brand-badge competencia" style="margin-left:16px;">Competencia vs Gonher</span></div>
+    </header>
+    <div class="frame" style="justify-content:space-between;">
+
+      <div style="margin-bottom:32px;">
+        <p class="t-eyebrow" style="margin-bottom:10px;">Tres marcas del ecosistema · conversación de terceros y propia</p>
+        <h2 class="t-title" style="max-width:1100px;">AutoZone domina en menciones; LTH lidera en engagement acumulado entre actores no-ciudadanía.</h2>
+      </div>
+
+      <!-- Tabla comparativa -->
+      <table class="tbl" style="font-size:22px;">
+        <colgroup>
+          <col style="width:280px;">
+          <col style="width:180px;">
+          <col style="width:200px;">
+          <col style="width:220px;">
+          <col style="width:160px;">
+          <col style="width:560px;">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Marca</th>
+            <th class="num">Menciones</th>
+            <th class="num">Engagement total</th>
+            <th class="num">Eng. / mención</th>
+            <th>Sentimiento dom.</th>
+            <th>Narrativa principal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="strong">AutoZone México</td>
+            <td class="num strong">83 posts propios</td>
+            <td class="num strong tabular">20,849</td>
+            <td class="num tabular">251</td>
+            <td><span class="pill pill--pos" style="font-size:14px;">Positivo</span></td>
+            <td style="color:var(--n-500);">Cultura automotriz, concursos, servicio al cliente. Muy activo en redes.</td>
+          </tr>
+          <tr>
+            <td class="strong">AutoZone (terceros)</td>
+            <td class="num strong">~1,400 est.</td>
+            <td class="num strong tabular accent-color">~500,000+ est.</td>
+            <td class="num tabular">357+</td>
+            <td><span class="pill" style="font-size:14px;">Mixto</span></td>
+            <td style="color:var(--n-500);">Cultura / pertenencia (pos) · seguridad pública (neg) · quejas (neg)</td>
+          </tr>
+          <tr>
+            <td class="strong">Baterías LTH</td>
+            <td class="num strong">80 posts</td>
+            <td class="num strong tabular">64,384</td>
+            <td class="num tabular accent-color">805</td>
+            <td><span class="pill pill--neg" style="font-size:14px;">Negativo</span></td>
+            <td style="color:var(--n-500);">Quejas de garantías, mal servicio posventa. Mayor engagement / post del corpus corporativo.</td>
+          </tr>
+          <tr>
+            <td class="strong" style="color:var(--accent);">Grupo Gonher</td>
+            <td class="num strong" style="color:var(--accent);">49 posts</td>
+            <td class="num strong tabular" style="color:var(--accent);">17,492</td>
+            <td class="num tabular" style="color:var(--accent);">357</td>
+            <td><span class="pill pill--pos" style="font-size:14px;">Positivo</span></td>
+            <td style="color:var(--n-500);">Empleador, orgullo interno. Conversación acotada al círculo propio.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="t-micro" style="margin-top:20px; color:var(--n-400);">Menciones "AutoZone (terceros)" es estimación derivada de proporciones del corpus. LTH incluye cuentas @Baterías LTH + @lthbaterias. Engagement propio vs terceros no es separable de forma exhaustiva sin lista completa de cuentas propias. Los datos de AutoZone Inc. (bursátil, EEUU) no están incluidos en esta comparativa.</p>
+
+    </div>
+    <footer class="slide-footer">
+      <span>09 · Monitoreo competitivo</span>
+      <span class="right"><span style="font-size:13px; letter-spacing:0.1em; color:var(--n-400);">ARTOOL</span></span>
+    </footer>
+  </div>
+</section>
+<section data-label="10 Divider · Cap 7 Riesgo reputacional">
+  <div class="slide dark">
+    <div class="divider">
+      <div class="top-row">
+        <div>
+          <div class="ch-eyebrow">Grupo Gonher · Monitoreo digital · Mar–Jun 2026</div>
+        </div>
+        <div style="font-family:var(--font-display);font-weight:900;font-size:28px;letter-spacing:0.04em;color:rgba(255,255,255,.35);">GONHER</div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:flex-end;flex:1;">
+        <div class="ch-num" style="color:rgba(255,255,255,.10);position:absolute;right:96px;bottom:72px;font-size:420px;line-height:0.85;letter-spacing:-0.06em;pointer-events:none;user-select:none;">07</div>
+        <div class="ch-title" style="position:relative;z-index:1;">Riesgo<br>reputacional.</div>
+        <p class="ch-desc" style="position:relative;z-index:1;">Agravantes activos, narrativas latentes y escenarios de escalamiento que conviene vigilar en los próximos 90 días.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-label="10.1 Riesgo · Agravantes vs mitigantes">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">10 · Cap 7 · Riesgo reputacional</div>
+      <div class="crumb">
+        <span>10.1</span>
+        <span class="dot">·</span>
+        <b>Balance de exposición actual</b>
+      </div>
+    </header>
+    <div class="frame" style="padding-top:52px;">
+      <p class="t-eyebrow" style="margin-bottom:28px;">Agravantes activos · Mitigantes en juego</p>
+      <div class="row" style="gap:0;flex:1;min-height:0;">
+
+        <!-- Agravantes -->
+        <div class="col gap-6 fill" style="padding-right:64px;border-right:1px solid var(--n-200);">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+            <span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#B5251D;"></span>
+            <span class="t-eyebrow neg-color" style="font-size:16px;">Agravantes</span>
+          </div>
+
+          <div class="col gap-3">
+            <p class="t-h3" style="font-size:28px;letter-spacing:-0.01em;">Invisibilidad competitiva frente a AutoZone</p>
+            <p class="t-small">AutoZone domina el 47% del ecosistema de conversación del sector. Gonher carece de presencia orgánica en los mismos espacios de escucha (TikTok detailing, X financiero).</p>
+          </div>
+          <hr class="hr">
+          <div class="col gap-3">
+            <p class="t-h3" style="font-size:28px;letter-spacing:-0.01em;">Narrativa de quejas de servicio activa (15% del corpus)</p>
+            <p class="t-small">La narrativa de garantías y servicio incluye menciones a Gonher junto a AutoZone y LTH. Sin respuesta institucional visible, el silencio amplifica la percepción de desatención.</p>
+          </div>
+          <hr class="hr">
+          <div class="col gap-3">
+            <p class="t-h3" style="font-size:28px;letter-spacing:-0.01em;">Concentración extrema de engagement en pocos autores</p>
+            <p class="t-small">Dos cuentas (obsidian.detail.l y prourbanshine) generan ~30% de todo el engagement del ecosistema. Si su postura cambia o amplían críticas, el impacto es desproporcionado.</p>
+          </div>
+          <hr class="hr">
+          <div class="col gap-3">
+            <p class="t-h3" style="font-size:28px;letter-spacing:-0.01em;">Sin cuentas propias identificadas para corte owned/earned</p>
+            <p class="t-small">La ausencia de monitoreo diferenciado impide detectar a tiempo si una crisis empieza a señalar directamente a las cuentas institucionales de Gonher.</p>
+          </div>
+        </div>
+
+        <!-- Mitigantes -->
+        <div class="col gap-6 fill" style="padding-left:64px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+            <span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#1B9E4B;"></span>
+            <span class="t-eyebrow pos-color" style="font-size:16px;">Mitigantes</span>
+          </div>
+
+          <div class="col gap-3">
+            <p class="t-h3" style="font-size:28px;letter-spacing:-0.01em;">Narrativa empleador fuertemente positiva</p>
+            <p class="t-small">El 14% del corpus posiciona a Gonher como empleador de orgullo. Es el único espacio donde la marca institucional tiene voz propia con sentimiento positivo sostenido.</p>
+          </div>
+          <hr class="hr">
+          <div class="col gap-3">
+            <p class="t-h3" style="font-size:28px;letter-spacing:-0.01em;">Marca aún no asociada a narrativas de crisis externas</p>
+            <p class="t-small">Las narrativas de riesgo (escasez de lubricantes, hechos viales, AZO bursátil) circulan sin nombrar directamente a Gonher. La "distancia nominal" es un escudo temporal.</p>
+          </div>
+          <hr class="hr">
+          <div class="col gap-3">
+            <p class="t-h3" style="font-size:28px;letter-spacing:-0.01em;">LTH absorbe más fricción de consumidor que Gonher</p>
+            <p class="t-small">Baterías LTH (51K eng, 61 menciones) concentra quejas directas de producto. Gonher, como matriz, permanece en segundo plano de la conversación de queja.</p>
+          </div>
+          <hr class="hr">
+          <div class="col gap-3">
+            <p class="t-h3" style="font-size:28px;letter-spacing:-0.01em;">Volumen manejable (3 026 menciones / 92 días)</p>
+            <p class="t-small">La conversación no está desbordada. El tamaño del corpus permite gestión proactiva y monitoreo fino sin escalar recursos de forma urgente.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <footer class="slide-footer">
+      <span>10 · Cap 7 · Riesgo reputacional</span>
+      <span class="right" style="font-family:var(--font-display);font-weight:900;letter-spacing:0.04em;font-size:20px;color:var(--n-300);">artool.</span>
+    </footer>
+  </div>
+</section>
+<section data-label="10.2 Riesgo · Escenarios de escalamiento próximos 90 días">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">10 · Cap 7 · Riesgo reputacional</div>
+      <div class="crumb">
+        <span>10.2</span>
+        <span class="dot">·</span>
+        <b>Escenarios a vigilar · Próximos 90 días</b>
+      </div>
+    </header>
+    <div class="frame" style="padding-top:48px;">
+      <p class="t-eyebrow" style="margin-bottom:36px;">Cinco hipótesis de escalamiento · Jun – Sep 2026</p>
+
+      <div class="row" style="gap:48px;flex:1;align-items:stretch;">
+
+        <!-- Columna izquierda: 3 ítems -->
+        <div class="col gap-5 fill">
+
+          <div class="col gap-3" style="padding:32px 36px;border:1px solid var(--n-200);border-top:3px solid #B5251D;">
+            <p class="t-eyebrow" style="font-size:14px;letter-spacing:0.14em;color:#B5251D;">Escenario A · Probabilidad media</p>
+            <p class="t-h3" style="font-size:26px;">Queja viral de consumidor nombra a Gonher directamente</p>
+            <p class="t-small">Si un influencer de autopartes (TikTok / IG Reels) documenta una garantía fallida y menciona a Gonher por nombre, la narrativa de quejas —hoy difusa— se concentra sobre la marca matriz. La velocidad de respuesta institucional será determinante.</p>
+          </div>
+
+          <div class="col gap-3" style="padding:32px 36px;border:1px solid var(--n-200);border-top:3px solid #B5251D;">
+            <p class="t-eyebrow" style="font-size:14px;letter-spacing:0.14em;color:#B5251D;">Escenario B · Probabilidad media-alta</p>
+            <p class="t-h3" style="font-size:26px;">Hecho de seguridad en punto de venta asocia marca LTH / Gonher</p>
+            <p class="t-small">La narrativa de hechos viales y delictivos ya usa las tiendas AutoZone como georreferencia. Un incidente en un punto de distribución de LTH puede trasladar ese frame a la familia de marcas Gonher.</p>
+          </div>
+
+          <div class="col gap-3" style="padding:32px 36px;border:1px solid var(--n-200);border-top:3px solid var(--n-300);">
+            <p class="t-eyebrow" style="font-size:14px;letter-spacing:0.14em;color:var(--n-500);">Escenario C · Probabilidad baja / alto impacto</p>
+            <p class="t-h3" style="font-size:26px;">Crisis de cadena de suministro amplifica la narrativa de escasez de lubricantes</p>
+            <p class="t-small">El memo viral sobre escasez de fluidos automotrices (8% del corpus) podría resurgir si tensiones geopolíticas o arancelarias afectan el mercado mexicano. Gonher, como distribuidor, entraría en la conversación sin haber generado el problema.</p>
+          </div>
+
+        </div>
+
+        <!-- Columna derecha: 2 ítems + nota -->
+        <div class="col gap-5 fill">
+
+          <div class="col gap-3" style="padding:32px 36px;border:1px solid var(--n-200);border-top:3px solid #B5251D;">
+            <p class="t-eyebrow" style="font-size:14px;letter-spacing:0.14em;color:#B5251D;">Escenario D · Probabilidad media</p>
+            <p class="t-h3" style="font-size:26px;">Caída bursátil de AZO arrastra conversación negativa hacia el ecosistema</p>
+            <p class="t-small">El 12% del corpus monitorea AZO como activo financiero. Una corrección importante en la acción (ya registró su peor día en cuatro años dentro del período) puede derrramar desconfianza hacia distribuidores y socios de la cadena, incluida la red Gonher / LTH.</p>
+          </div>
+
+          <div class="col gap-3" style="padding:32px 36px;border:1px solid var(--n-200);border-top:3px solid var(--n-300);">
+            <p class="t-eyebrow" style="font-size:14px;letter-spacing:0.14em;color:var(--n-500);">Escenario E · Riesgo sistémico</p>
+            <p class="t-h3" style="font-size:26px;">Punto ciego por ausencia de monitoreo owned</p>
+            <p class="t-small">Sin la lista de cuentas propias configurada en el sistema de escucha, una crisis que empiece desde las cuentas institucionales de Gonher podría no ser detectada hasta que ya circula como earned. Este es el único riesgo completamente evitable con una acción inmediata de configuración.</p>
+          </div>
+
+          <div style="padding:24px 32px;background:var(--n-50);border:1px solid var(--n-100);margin-top:auto;">
+            <p class="t-micro" style="font-size:17px;line-height:1.5;color:var(--n-500);">
+              <strong style="color:var(--ink);font-weight:700;">Ventana de vigilancia:</strong> Jun – Sep 2026.
+              Los picos del período (20 may · 1 jun) sugieren que eventos externos detonan volumen en 24–48 h.
+              Un protocolo de alerta temprana con umbrales de volumen diario (+3× línea base) reduciría el tiempo de reacción.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <footer class="slide-footer">
+      <span>10 · Cap 7 · Riesgo reputacional</span>
+      <span class="right" style="font-family:var(--font-display);font-weight:900;letter-spacing:0.04em;font-size:20px;color:var(--n-300);">artool.</span>
+    </footer>
+  </div>
+</section>
+<section data-label="11 Divider · Cap 8 Recomendaciones">
+  <div class="slide dark">
+    <div class="divider">
+      <div class="top-row">
+        <div>
+          <div class="ch-eyebrow">Grupo Gonher · Monitoreo digital · Mar–Jun 2026</div>
+        </div>
+        <div style="font-family:var(--font-display);font-weight:900;font-size:28px;letter-spacing:0.04em;color:rgba(255,255,255,.35);">GONHER</div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:flex-end;flex:1;">
+        <div class="ch-num" style="color:rgba(255,255,255,.10);position:absolute;right:96px;bottom:72px;font-size:420px;line-height:0.85;letter-spacing:-0.06em;pointer-events:none;user-select:none;">08</div>
+        <div class="ch-title" style="position:relative;z-index:1;">Recomen-<br>daciones.</div>
+        <p class="ch-desc" style="position:relative;z-index:1;">Lineamientos de vigilancia, relacionamiento y comunicación institucional anclados en los hallazgos del reporte.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-label="11.1 Recomendaciones · Vigilancia y monitoreo">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">11 · Cap 8 · Recomendaciones</div>
+      <div class="crumb">
+        <span>11.1</span>
+        <span class="dot">·</span>
+        <b>Vigilancia y monitoreo</b>
+      </div>
+    </header>
+    <div class="frame" style="padding-top:48px;">
+      <p class="t-eyebrow" style="margin-bottom:40px;">Qué conviene observar y cómo — horizonte inmediato</p>
+
+      <div class="numlist" style="gap:40px;">
+
+        <div class="item">
+          <div class="num num--accent">A</div>
+          <div>
+            <h4>Configurar las cuentas propias de Gonher en el sistema de escucha</h4>
+            <p>El paso más urgente y de menor costo: registrar handles institucionales (Grupo Gonher, LTH, Gonher autopartes y voceros corporativos) permite separar owned de earned, calcular sentimiento real de terceros y detectar cualquier crisis que empiece desde las cuentas propias. Sin este corte, el reporte mide el ecosistema, no la marca.</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="num">B</div>
+          <div>
+            <h4>Activar alertas de volumen diario con umbral +3× línea base (~90 menciones/día)</h4>
+            <p>Los dos picos del período (233 menciones el 20 may, 201 el 1 jun) emergieron en 24 horas. Un umbral de alerta automático daría margen para evaluar el origen antes de que la conversación escale. Conviene vincular la alerta al canal de comunicaciones del equipo de reputación.</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="num">C</div>
+          <div>
+            <h4>Monitorear específicamente a los dos autores de mayor concentración de engagement</h4>
+            <p>obsidian.detail.l y prourbanshine concentran ~30% del engagement total del ecosistema con muy pocas publicaciones. Su postura actual es neutra o positiva hacia el sector. Se abre la oportunidad de mapear su afinidad hacia Gonher y LTH antes de que un competidor los active.</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="num">D</div>
+          <div>
+            <h4>Seguimiento semanal de la narrativa de quejas de garantías (15% del corpus)</h4>
+            <p>Esta narrativa es la única que nombra a Gonher en contexto negativo junto a AutoZone y LTH. Conviene rastrear si la proporción crece o si aparecen nuevos autores con alto engagement en ese frame. Un incremento sostenido por encima del 20% del corpus sería señal de alerta.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <footer class="slide-footer">
+      <span>11 · Cap 8 · Recomendaciones</span>
+      <span class="right" style="font-family:var(--font-display);font-weight:900;letter-spacing:0.04em;font-size:20px;color:var(--n-300);">artool.</span>
+    </footer>
+  </div>
+</section>
+<section data-label="11.2 Recomendaciones · Comunicación institucional y relacionamiento">
+  <div class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">11 · Cap 8 · Recomendaciones</div>
+      <div class="crumb">
+        <span>11.2</span>
+        <span class="dot">·</span>
+        <b>Comunicación institucional y relacionamiento</b>
+      </div>
+    </header>
+    <div class="frame" style="padding-top:48px;">
+      <p class="t-eyebrow" style="margin-bottom:40px;">Oportunidades de posicionamiento y relacionamiento — horizonte 90 días</p>
+
+      <div class="row" style="gap:64px;flex:1;align-items:start;">
+
+        <!-- Columna izquierda -->
+        <div class="col gap-7 fill">
+
+          <div class="col gap-4" style="border-top:3px solid var(--accent);padding-top:24px;">
+            <p class="t-eyebrow" style="font-size:15px;letter-spacing:0.14em;color:var(--accent);">Oportunidad E · Alta prioridad</p>
+            <p class="t-h3" style="font-size:32px;letter-spacing:-0.015em;">Escalar la narrativa empleador hacia audiencias externas</p>
+            <p class="t-small" style="line-height:1.55;">El 14% del corpus ya posiciona a Gonher como empleador de orgullo, pero esta narrativa circula casi exclusivamente en canales internos y de RRHH. Existe margen para llevarla a LinkedIn, prensa especializada en empresa y comunidades de talento automotriz, donde la marca institucional tiene escasa presencia. La fortaleza ya existe: el trabajo es amplificarla hacia donde Gonher aún no se ve.</p>
+          </div>
+
+          <div class="col gap-4" style="border-top:3px solid var(--ink);padding-top:24px;">
+            <p class="t-eyebrow" style="font-size:15px;letter-spacing:0.14em;">Oportunidad F</p>
+            <p class="t-h3" style="font-size:32px;letter-spacing:-0.015em;">Gestión proactiva de quejas de LTH antes de que escalen a Gonher</p>
+            <p class="t-small" style="line-height:1.55;">LTH absorbe actualmente la mayor parte de la fricción de consumidor (51 638 eng, 61 menciones). Una estrategia de respuesta rápida y visible desde la cuenta de Baterías LTH crearía un cortafuegos que evitaría que las quejas migren hacia la marca matriz. Conviene evaluar si el protocolo de atención al cliente de LTH es consistente con el estándar de reputación que Gonher quiere proyectar.</p>
+          </div>
+
+        </div>
+
+        <!-- Columna derecha -->
+        <div class="col gap-7 fill">
+
+          <div class="col gap-4" style="border-top:3px solid var(--ink);padding-top:24px;">
+            <p class="t-eyebrow" style="font-size:15px;letter-spacing:0.14em;">Oportunidad G</p>
+            <p class="t-h3" style="font-size:32px;letter-spacing:-0.015em;">Explorar presencia en espacios donde AutoZone construye pertenencia</p>
+            <p class="t-small" style="line-height:1.55;">La narrativa cultural de AutoZone ("el AutoZone es como un Walmart para hombres", 22% del corpus) construye identidad entre usuarios de detailing y cultura automotriz. Gonher, como parte del ecosistema del sector, podría encontrar un lugar de enunciación propio en esos espacios —sin competir directamente con AutoZone— asociándose a la comunidad de mantenimiento y reparación más que al punto de venta.</p>
+          </div>
+
+          <div class="col gap-4" style="border-top:3px solid var(--ink);padding-top:24px;">
+            <p class="t-eyebrow" style="font-size:15px;letter-spacing:0.14em;">Oportunidad H</p>
+            <p class="t-h3" style="font-size:32px;letter-spacing:-0.015em;">Preparar un protocolo de vocería ante escenarios de crisis nominales</p>
+            <p class="t-small" style="line-height:1.55;">Hoy Gonher no tiene presencia sustantiva en la conversación de crisis del sector. Si alguno de los escenarios de escalamiento se activa (queja viral, hecho de seguridad, escasez de insumos), la ausencia de una voz institucional preparada amplifica el daño. Contar con un protocolo de 48 horas —quién habla, qué dice, en qué canales— convierte un riesgo latente en una situación gestionable.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <footer class="slide-footer">
+      <span>11 · Cap 8 · Recomendaciones</span>
+      <span class="right" style="font-family:var(--font-display);font-weight:900;letter-spacing:0.04em;font-size:20px;color:var(--n-300);">artool.</span>
+    </footer>
+  </div>
+</section>
+<section data-label="12 Cierre">
+  <div class="slide dark">
+    <div class="closing">
+
+      <!-- Top -->
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-weight:700;font-size:18px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,.45);">
+          Grupo Gonher · Monitoreo digital · Mar–Jun 2026
+        </div>
+        <div style="font-family:var(--font-display);font-weight:900;font-size:28px;letter-spacing:0.04em;color:rgba(255,255,255,.3);">GONHER</div>
+      </div>
+
+      <!-- Centro -->
+      <div class="col" style="justify-content:center;gap:36px;padding:0 0 24px;">
+        <div style="font-weight:700;font-size:18px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">Lectura central</div>
+
+        <h2 style="font-family:var(--font-display);font-weight:900;font-size:112px;line-height:0.94;letter-spacing:-0.035em;color:var(--paper);max-width:1560px;text-wrap:balance;">
+          Gonher sólido como empleador,<br>
+          <span style="color:rgba(255,255,255,.45);">pero invisible donde</span><br>
+          AutoZone domina la conversación.
+        </h2>
+
+        <div style="display:flex;gap:64px;align-items:flex-start;margin-top:24px;padding-top:36px;border-top:1px solid rgba(255,255,255,.12);">
+          <div class="col gap-3" style="max-width:460px;">
+            <p style="font-weight:700;font-size:17px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,.4);">La distancia hoy protege</p>
+            <p style="font-size:24px;line-height:1.5;color:rgba(255,255,255,.75);">La marca institucional no aparece en las narrativas de crisis activas del ecosistema. La "distancia nominal" es un escudo temporal —y manejable si se activa ahora.</p>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,.12);align-self:stretch;"></div>
+          <div class="col gap-3" style="max-width:460px;">
+            <p style="font-weight:700;font-size:17px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,.4);">El espacio es conquistable</p>
+            <p style="font-size:24px;line-height:1.5;color:rgba(255,255,255,.75);">AutoZone construye pertenencia; Gonher construye orgullo de colaborador. Ambas son bases de capital simbólico. La segunda aún no ha llegado a los mismos foros donde la primera domina.</p>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,.12);align-self:stretch;"></div>
+          <div class="col gap-3" style="max-width:440px;">
+            <p style="font-weight:700;font-size:17px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,.4);">El primer paso es técnico</p>
+            <p style="font-size:24px;line-height:1.5;color:rgba(255,255,255,.75);">Registrar las cuentas propias en el sistema de monitoreo es la acción de menor costo y mayor impacto inmediato para convertir este diagnóstico en gestión continua.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+        <div style="font-size:15px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600;line-height:1.7;">
+          Reporte preparado por Artool<br>
+          Período: 10 mar – 10 jun 2026 · Uso interno · Confidencial
+        </div>
+        <div style="font-family:var(--font-display);font-weight:900;font-size:40px;letter-spacing:0.04em;color:rgba(255,255,255,.55);">artool.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</deck-stage>
+
+<div class="presenter-controls">
+  <button id="pres-prev" aria-label="Anterior">←</button>
+  <span class="counter"><span id="pres-i">1</span>/<span id="pres-n">—</span></span>
+  <button id="pres-next" aria-label="Siguiente">→</button>
+  <button id="pres-toggle">Presentar · F</button>
+</div>
+<script>
+(function () {
+  var slides = document.querySelectorAll('section[data-label]');
+  var i = 0;
+  var elI = document.getElementById('pres-i');
+  var elN = document.getElementById('pres-n');
+  var btn = document.getElementById('pres-toggle');
+  elN.textContent = slides.length;
+
+  function setSlide(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    elI.textContent = i + 1;
+    if (document.body.classList.contains('presenting')) {
+      for (var k = 0; k < slides.length; k++) {
+        slides[k].classList.toggle('current', k === i);
+      }
+    } else {
+      slides[i].scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+  }
+  function toggle() {
+    var on = document.body.classList.toggle('presenting');
+    btn.textContent = on ? 'Salir · Esc' : 'Presentar · F';
+    if (on) {
+      for (var k = 0; k < slides.length; k++) slides[k].classList.toggle('current', k === i);
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(function(){});
+      }
+    } else {
+      for (var k = 0; k < slides.length; k++) slides[k].classList.remove('current');
+      if (document.fullscreenElement) document.exitFullscreen();
+    }
+  }
+  document.getElementById('pres-prev').onclick = function () { setSlide(i - 1); };
+  document.getElementById('pres-next').onclick = function () { setSlide(i + 1); };
+  btn.onclick = toggle;
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target.matches('input, textarea, select')) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === ' ' || k === 'PageDown') { e.preventDefault(); setSlide(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); setSlide(i - 1); }
+    else if (k === 'Home') { e.preventDefault(); setSlide(0); }
+    else if (k === 'End') { e.preventDefault(); setSlide(slides.length - 1); }
+    else if ((k === 'f' || k === 'F') && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      e.preventDefault(); toggle();
+    } else if (k === 'Escape' && document.body.classList.contains('presenting')) {
+      e.preventDefault(); toggle();
+    }
+  });
+
+  document.addEventListener('fullscreenchange', function () {
+    if (!document.fullscreenElement && document.body.classList.contains('presenting')) {
+      document.body.classList.remove('presenting');
+      for (var k = 0; k < slides.length; k++) slides[k].classList.remove('current');
+      btn.textContent = 'Presentar · F';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
